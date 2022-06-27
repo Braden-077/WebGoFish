@@ -5,8 +5,10 @@ require 'capybara/dsl'
 require 'pry'
 ENV['RACK_ENV'] = 'test'
 require_relative '../server'
-
+ 
 RSpec.describe Server do
+  let(:session1) { Capybara::Session.new(:rack_test, Server.new) }
+  let(:session2) { Capybara::Session.new(:rack_test, Server.new) }
   # include Rack::Test::Methods
   include Capybara::DSL
   before do
@@ -22,9 +24,6 @@ RSpec.describe Server do
   end
 
   it 'allows multiple players to join game' do
-    session1 = Capybara::Session.new(:rack_test, Server.new)
-    session2 = Capybara::Session.new(:rack_test, Server.new)
-
     [ session1, session2 ].each_with_index do |session, index|
       player_name = "Player #{index + 1}"
       session.visit '/'
@@ -36,5 +35,9 @@ RSpec.describe Server do
     expect(session2).to have_content('Player 1')
     session1.driver.refresh
     expect(session1).to have_content('Player 2')
+  end
+
+  it 'starts a game and shows players their cards' do
+    
   end
 end

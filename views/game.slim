@@ -2,11 +2,10 @@
   h1 Game
 
 .flex.justify-center
-  .card.two-fifths-width
+  .card
     form action='/game' method='get'
       .card__header
         h3 Players
-
         .card__body
           ul
             - game.players.each do |player|
@@ -14,4 +13,7 @@
                 li: b #{player.name}
               - else 
                 li #{player.name}
-
+            -if game.players.count == 2 
+              -game.start
+            -else 
+              p Waiting on players... 

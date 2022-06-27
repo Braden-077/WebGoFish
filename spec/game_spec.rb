@@ -20,4 +20,28 @@ describe Game do
       expect(game.empty?).to be false
     end
   end
+
+  describe '#start' do
+    it 'deals cards' do
+      player1 = Player.new(name: 'Josh')
+      player2 = Player.new(name: 'Will')
+      player3 = Player.new(name: 'Braden')
+      game = Game.new([player1, player2, player3])
+      hand_count = game.determined_card_num
+      game.start
+      game.players.each {|player| expect(player.hand_count).to eq hand_count}
+      expect(game.deck.cards_left).to eq Deck.new.cards_left - hand_count * game.players.count
+    end
+
+    it 'deals 5 cards to 4 or more players' do
+      players = [Player.new(name: 'Josh'), Player.new(name: 'Will'), Player.new(name: 'Braden'), Player.new(name: 'Caleb')]
+      game = Game.new(players)
+      hand_count = game.determined_card_num
+      game.start
+      expect(players[0].hand.count).to eq hand_count
+      expect(players[1].hand.count).to eq hand_count
+      expect(players[2].hand.count).to eq hand_count
+      expect(game.deck.cards_left).to eq Deck.new.cards_left - hand_count * game.players.count
+    end
+  end
 end

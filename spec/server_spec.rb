@@ -5,7 +5,7 @@ require 'capybara/dsl'
 require 'pry'
 ENV['RACK_ENV'] = 'test'
 require_relative '../server'
-
+ 
 RSpec.describe Server do
   let(:session1) { Capybara::Session.new(:rack_test, Server.new) }
   let(:session2) { Capybara::Session.new(:rack_test, Server.new) }

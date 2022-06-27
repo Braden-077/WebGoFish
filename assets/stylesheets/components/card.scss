@@ -1,0 +1,55 @@
+// DOCS
+
+// -- For a card with header, body, and footer --
+
+// .card
+//   .card__header
+//     {{Content}}
+//   .card__body
+//     {{Content}}
+//   .card__footer
+//     {{Content}}
+
+// -- For a simple one-panel card with content --
+
+// .card--padded
+//   {{Content}}
+
+:root {
+  --rm-card-padding: var(--rm-space-medium);
+}
+
+%card {
+  position: relative;
+
+  background-color: var(--rm-color-background);
+  color: var(--rm-color-neutral-on-background);
+
+  box-shadow: var(--rm-border-card-outline);
+  border-radius: var(--rm-radius-medium);
+  font-size: var(--rm-font-medium);
+  line-height: var(--rm-line-height-base);
+  overflow: hidden;
+}
+
+.card {
+  @extend %card;
+}
+
+.card--padded {
+  @extend %card;
+
+  padding: var(--rm-card-padding);
+}
+
+.card__header,
+.card__body,
+.card__footer {
+  padding: var(--rm-card-padding);
+}
+
+.card__header {
+  h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+  }
+}

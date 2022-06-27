@@ -1,0 +1,642 @@
+.container.margin-y-xl
+  .flex.items-center.gap-lg
+    h1 Basic Style Guide Demo
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      .flex.justify-between.items-center
+        h2.styleguide-section__title Typography
+        h4 --rm-font-family: Roboto
+    .card__body
+      .flex.gap-md
+        .card.two-thirds-width
+          .card__header.background-primary-lighter
+            h3 Scale
+          .card__body
+            .font-xxxxxl --rm-font-5x-large - 42px
+            .font-xxxxl --rm-font-4x-large - 37px
+            .font-xxxl --rm-font-3x-large - 32px
+            .font-xxl --rm-font-2x-large - Heading 1 - 28px
+            .font-xl --rm-font-x-large - Heading 2 - 24px
+            .font-lg --rm-font-large - Heading 3 - 21px
+            .font-md --rm-font-medium - Heading 4 - 18px
+            .font-sm --rm-font-small - Heading 5 - 16px
+            .font-xs --rm-font-x-small - Heading 6 - 14px
+            .font-xxs --rm-font-2x-small - 12px
+
+        .card.one-third-width
+          .card__header.background-primary-lighter
+            h3 Weight
+          .card__body
+            .font-light --rm-font-weight-light: 300
+            .font-normal --rm-font-weight-normal: 400
+            .font-semi-bold --rm-font-weight-semi-bold: 600
+            .font-bold --rm-font-weight-bold: 700
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Radius
+    .card__body
+      .flex.justify-between.items-center.gap-xs
+        .card.card--padded style="border-radius: var(--rm-radius-small)" Small
+        .card.card--padded style="border-radius: var(--rm-radius-medium)" Medium
+        .card.card--padded style="border-radius: var(--rm-radius-large)" Large
+        .card.card--padded style="border-radius: var(--rm-radius-x-large)" Extra Large
+        .card.card--padded.flex.items-center style="border-radius: var(--rm-radius-circle); height: 78px;" Circle
+        .card.card--padded style="border-radius: var(--rm-radius-pill); width: 100px; text-align: center;" Pill
+
+  section.card.margin-top-md
+    .card__header.background-primary-lighter
+      h2.styleguide-section__title Line Height
+    .card__body
+      .flex.layout-row.gap-xs
+        div
+          p --rm-line-height-none
+          p style="line-height: var(--rm-line-height-none)" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        div
+          p --rm-line-height-dense
+          p style="line-height: var(--rm-line-height-dense)" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        div
+          p --rm-line-height-normal
+          p style="line-height: var(--rm-line-height-normal)" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        div
+          p --rm-line-height-loose
+          p style="line-height: var(--rm-line-height-loose)" Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Spacing Reference
+    .card__body
+      .flex.layout-row.flex-wrap.gap-md
+        .one-third-width
+          .spacing-example style="width: var(--rm-space-3x-small)"
+          span --rm-space-3x-small (2px)
+        .one-third-width
+          .spacing-example style="width: var(--rm-space-2x-small)"
+          span --rm-space-2x-small (4px)
+        .one-third-width
+          .spacing-example style="width: var(--rm-space-x-small)"
+          span --rm-space-x-small (6px)
+        .one-third-width
+          .spacing-example style="width: var(--rm-space-small)"
+          span --rm-space-small (10px)
+        .one-third-width
+          .spacing-example style="width: var(--rm-space-medium)"
+          span --rm-space-medium (16px)
+        .one-third-width
+          .spacing-example style="width: var(--rm-space-large)"
+          span --rm-space-large (26px)
+        .one-third-width
+          .spacing-example style="width: var(--rm-space-x-large)"
+          span --rm-space-x-large (42px)
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Shadows
+    .card__body
+      .flex.layout-row.gap-md.flex-wrap
+        .card.card--padded No Shadow
+        .card.card--padded.shadow-x-small Extra small shadow
+        .card.card--padded.shadow-small Small shadow
+        .card.card--padded.shadow-medium Medium shadow
+        .card.card--padded.shadow-large Large shadow
+        .card.card--padded.shadow-x-large Extra large shadow
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Color Scales
+      p Example --rm-color-primary-30
+    .card__body
+      .margin-top-md
+        h4 Primary
+
+        .flex.layout-row.flex-wrap
+          - colors = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 100]
+          - colors.each_with_index do |color, index|
+            .swatch style="background: var(--rm-color-primary-luminosity-#{color});"
+              span = color
+
+      .margin-top-md
+        h4 Secondary
+
+        .flex.layout-row.flex-wrap
+          - colors = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 100]
+          - colors.each_with_index do |color, index|
+            .swatch style="background: var(--rm-color-secondary-luminosity-#{color});"
+              span = color
+
+      .margin-top-md
+        h4 Tertiary
+
+        .flex.layout-row.flex-wrap
+          - colors = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 100]
+          - colors.each_with_index do |color, index|
+            .swatch style="background: var(--rm-color-tertiary-luminosity-#{color});"
+              span = color
+
+      .margin-top-md
+        h4 Neutral
+
+        .flex.layout-row.flex-wrap
+          - colors = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 100]
+          - colors.each_with_index do |color, index|
+            .swatch style="background: var(--rm-color-neutral-luminosity-#{color});"
+              span = color
+
+      .margin-top-md
+        h4 Neutral Variant
+
+        .flex.layout-row.flex-wrap
+          - colors = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 95, 98, 100]
+          - colors.each_with_index do |color, index|
+            .swatch style="background: var(--rm-color-neutral-variant-luminosity-#{color});"
+              span = color
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Semantic Colors
+    .card__body
+      .margin-top-md
+        h4 Primary
+
+        .flex.layout-row.gap-md
+          .card.card--padded class="background-primary-lightest"
+            code.font-xxs .background-primary-lightest
+            p.font-xxs background-color: var(--rm-color-primary-lightest)
+            p.font-xxs color: var(--rm-color-primary-on-lightest)
+
+            .card.card--padded class="background-primary-lighter"
+              code.font-xxs .background-primary-lighter
+              p.font-xxs background-color: var(--rm-color-primary-lighter)
+              p.font-xxs color: var(--rm-color-primary-on-lighter)
+
+              .card.card--padded class="background-primary-light"
+                code.font-xxs .background-primary-light
+                p.font-xxs background-color: var(--rm-color-primary-light)
+                p.font-xxs color: var(--rm-color-primary-on-light)
+
+                .card.card--padded class="background-primary-base"
+                  code.font-xxs .background-primary-base
+                  p.font-xxs background-color: var(--rm-color-primary-base)
+                  p.font-xxs color: var(--rm-color-primary-on-base)
+
+                  .card.card--padded class="background-primary-dark"
+                    code.font-xxs .background-primary-dark
+                    p.font-xxs background-color: var(--rm-color-primary-dark)
+                    p.font-xxs color: var(--rm-color-primary-on-dark)
+
+                    .card.card--padded class="background-primary-darker"
+                      code.font-xxs .background-primary-darker
+                      p.font-xxs background-color: var(--rm-color-primary-darker)
+                      p.font-xxs color: var(--rm-color-primary-on-darker)
+
+                      .card.card--padded class="background-primary-darkest"
+                        code.font-xxs .background-primary-darkest
+                        p.font-xxs background-color: var(--rm-color-primary-darkest)
+                        p.font-xxs color: var(--rm-color-primary-on-darkest)
+
+      .margin-top-md
+        h4 Secondary
+
+        .flex.layout-row.gap-md
+          .card.card--padded class="background-secondary-lightest"
+            code.font-xxs .background-secondary-lightest
+            p.font-xxs background-color: var(--rm-color-secondary-lightest)
+            p.font-xxs color: var(--rm-color-secondary-on-lightest)
+
+            .card.card--padded class="background-secondary-lighter"
+              code.font-xxs .background-secondary-lighter
+              p.font-xxs background-color: var(--rm-color-secondary-lighter)
+              p.font-xxs color: var(--rm-color-secondary-on-lighter)
+
+              .card.card--padded class="background-secondary-light"
+                code.font-xxs .background-secondary-light
+                p.font-xxs background-color: var(--rm-color-secondary-light)
+                p.font-xxs color: var(--rm-color-secondary-on-light)
+
+                .card.card--padded class="background-secondary-base"
+                  code.font-xxs .background-secondary-base
+                  p.font-xxs background-color: var(--rm-color-secondary-base)
+                  p.font-xxs color: var(--rm-color-secondary-on-base)
+
+                  .card.card--padded class="background-secondary-dark"
+                    code.font-xxs .background-secondary-dark
+                    p.font-xxs background-color: var(--rm-color-secondary-dark)
+                    p.font-xxs color: var(--rm-color-secondary-on-dark)
+
+                    .card.card--padded class="background-secondary-darker"
+                      code.font-xxs .background-secondary-darker
+                      p.font-xxs background-color: var(--rm-color-secondary-darker)
+                      p.font-xxs color: var(--rm-color-secondary-on-darker)
+
+                      .card.card--padded class="background-secondary-darkest"
+                        code.font-xxs .background-secondary-darkest
+                        p.font-xxs background-color: var(--rm-color-secondary-darkest)
+                        p.font-xxs color: var(--rm-color-secondary-on-darkest)
+
+      .margin-top-md
+        h4 Tertiary
+
+        .flex.layout-row.gap-md
+          .card.card--padded class="background-tertiary-lightest"
+            code.font-xxs .background-tertiary-lightest
+            p.font-xxs background-color: var(--rm-color-tertiary-lightest)
+            p.font-xxs color: var(--rm-color-tertiary-on-lightest)
+
+            .card.card--padded class="background-tertiary-lighter"
+              code.font-xxs .background-tertiary-lighter
+              p.font-xxs background-color: var(--rm-color-tertiary-lighter)
+              p.font-xxs color: var(--rm-color-tertiary-on-lighter)
+
+              .card.card--padded class="background-tertiary-light"
+                code.font-xxs .background-tertiary-light
+                p.font-xxs background-color: var(--rm-color-tertiary-light)
+                p.font-xxs color: var(--rm-color-tertiary-on-light)
+
+                .card.card--padded class="background-tertiary-base"
+                  code.font-xxs .background-tertiary-base
+                  p.font-xxs background-color: var(--rm-color-tertiary-base)
+                  p.font-xxs color: var(--rm-color-tertiary-on-base)
+
+                  .card.card--padded class="background-tertiary-dark"
+                    code.font-xxs .background-tertiary-dark
+                    p.font-xxs background-color: var(--rm-color-tertiary-dark)
+                    p.font-xxs color: var(--rm-color-tertiary-on-dark)
+
+                    .card.card--padded class="background-tertiary-darker"
+                      code.font-xxs .background-tertiary-darker
+                      p.font-xxs background-color: var(--rm-color-tertiary-darker)
+                      p.font-xxs color: var(--rm-color-tertiary-on-darker)
+
+                      .card.card--padded class="background-tertiary-darkest"
+                        code.font-xxs .background-tertiary-darkest
+                        p.font-xxs background-color: var(--rm-color-tertiary-darkest)
+                        p.font-xxs color: var(--rm-color-tertiary-on-darkest)
+
+      .margin-top-md
+        h4 Neutral
+
+        .flex.layout-row.gap-md
+          .card.card--padded class="background-neutral-lightest"
+            code.font-xxs .background-neutral-lightest
+            p.font-xxs background-color: var(--rm-color-neutral-lightest)
+            p.font-xxs color: var(--rm-color-neutral-on-lightest)
+
+            .card.card--padded class="background-neutral-lighter"
+              code.font-xxs .background-neutral-lighter
+              p.font-xxs background-color: var(--rm-color-neutral-lighter)
+              p.font-xxs color: var(--rm-color-neutral-on-lighter)
+
+              .card.card--padded class="background-neutral-light"
+                code.font-xxs .background-neutral-light
+                p.font-xxs background-color: var(--rm-color-neutral-light)
+                p.font-xxs color: var(--rm-color-neutral-on-light)
+
+                .card.card--padded class="background-neutral-base"
+                  code.font-xxs .background-neutral-base
+                  p.font-xxs background-color: var(--rm-color-neutral-base)
+                  p.font-xxs color: var(--rm-color-neutral-on-base)
+
+                  .card.card--padded class="background-neutral-dark"
+                    code.font-xxs .background-neutral-dark
+                    p.font-xxs background-color: var(--rm-color-neutral-dark)
+                    p.font-xxs color: var(--rm-color-neutral-on-dark)
+
+                    .card.card--padded class="background-neutral-darker"
+                      code.font-xxs .background-neutral-darker
+                      p.font-xxs background-color: var(--rm-color-neutral-darker)
+                      p.font-xxs color: var(--rm-color-neutral-on-darker)
+
+                      .card.card--padded class="background-neutral-darkest"
+                        code.font-xxs .background-neutral-darkest
+                        p.font-xxs background-color: var(--rm-color-neutral-darkest)
+                        p.font-xxs color: var(--rm-color-neutral-on-darkest)
+
+      .margin-top-md
+        h4 Neutral-Variant
+
+        .flex.layout-row.gap-md
+          .card.card--padded class="background-neutral-variant-lightest"
+            code.font-xxs .background-neutral-variant-lightest
+            p.font-xxs background-color: var(--rm-color-neutral-variant-lightest)
+            p.font-xxs color: var(--rm-color-neutral-variant-on-lightest)
+
+            .card.card--padded class="background-neutral-variant-lighter"
+              code.font-xxs .background-neutral-variant-lighter
+              p.font-xxs background-color: var(--rm-color-neutral-variant-lighter)
+              p.font-xxs color: var(--rm-color-neutral-variant-on-lighter)
+
+              .card.card--padded class="background-neutral-variant-light"
+                code.font-xxs .background-neutral-variant-light
+                p.font-xxs background-color: var(--rm-color-neutral-variant-light)
+                p.font-xxs color: var(--rm-color-neutral-variant-on-light)
+
+                .card.card--padded class="background-neutral-variant-base"
+                  code.font-xxs .background-neutral-variant-base
+                  p.font-xxs background-color: var(--rm-color-neutral-variant-base)
+                  p.font-xxs color: var(--rm-color-neutral-variant-on-base)
+
+                  .card.card--padded class="background-neutral-variant-dark"
+                    code.font-xxs .background-neutral-variant-dark
+                    p.font-xxs background-color: var(--rm-color-neutral-variant-dark)
+                    p.font-xxs color: var(--rm-color-neutral-variant-on-dark)
+
+                    .card.card--padded class="background-neutral-variant-darker"
+                      code.font-xxs .background-neutral-variant-darker
+                      p.font-xxs background-color: var(--rm-color-neutral-variant-darker)
+                      p.font-xxs color: var(--rm-color-neutral-variant-on-darker)
+
+                      .card.card--padded class="background-neutral-variant-darkest"
+                        code.font-xxs .background-neutral-variant-darkest
+                        p.font-xxs background-color: var(--rm-color-neutral-variant-darkest)
+                        p.font-xxs color: var(--rm-color-neutral-variant-on-darkest)
+
+      .margin-top-md
+        h4 Miscellaneous
+        .flex.layout-row.gap-md.flex-wrap
+          .swatch.shadow-x-small style="background: var(--rm-color-background); color: var(--rm-color-on-background)" Background (Neutral 98)
+          .swatch.shadow-x-small style="background: var(--rm-color-on-background); color: var(--rm-color-background)" On Background (Neutral 10)
+          .swatch.shadow-x-small style="background: var(--rm-color-outline); color: var(--rm-color-background)" Outline (Neutral Variant 80)
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Text Colors
+      p Badges
+    .card__body
+      h4 Danger
+      .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
+        - ['lighter', 'light', 'base', 'dark', 'darker'].each do |color|
+          .swatch style="background: var(--rm-color-alerts-danger-#{color})"
+            span = "--rm-color-alerts-danger-#{color}"
+
+      h4 Warning
+      .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
+        - ['lighter', 'light', 'base', 'dark', 'darker'].each do |color|
+          .swatch style="background: var(--rm-color-alerts-warning-#{color})"
+            span = "--rm-color-alerts-warning-#{color}"
+
+      h4 Info
+      .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
+        - ['lighter', 'light', 'base', 'dark', 'darker'].each do |color|
+          .swatch style="background: var(--rm-color-alerts-info-#{color})"
+            span = "--rm-color-alerts-info-#{color}"
+
+      h4 Notice
+      .flex.layout-row.gap-md.flex-wrap.margin-bottom-md
+        - ['lighter', 'light', 'base', 'dark', 'darker'].each do |color|
+          .swatch style="background: var(--rm-color-alerts-notice-#{color})"
+            span = "--rm-color-alerts-notice-#{color}"
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Cards
+    .card__body
+      .flex.layout-row.gap-md.flex-wrap
+        .card
+          span Just a Card
+          div
+            code .card
+        .card.card--padded
+          span Padded Card
+          div
+            code .card.card--padded
+        .card.shadow-medium
+          .card__header
+            span Card with Shadow
+          .card__body
+            code .card.shadow-medium
+
+      .card.margin-top-md
+        .card__header.background-primary-lighter
+          h3 Colored with header and body
+        .card__body.background-primary-lightest
+          pre
+            div .card
+            div.margin-left-sm .card__header.background-primary-lighter
+            div.margin-left-sm .card__body.background-primary-lightest
+      .card.elevation-3.margin-top-md
+        .card__header.background-primary-darker
+          .flex.justify-between.items-center
+            h3 Styled
+            / button.btn.btn--primary = icon('edit')
+        .card__body.background-primary-dark
+          pre
+            div .card.elevation-3
+            div.margin-left-sm .card__header.background-primary-darker
+            div.margin-left-sm .card__body.background-primary-dark
+            div.margin-left-sm .card__footer.background-primary-base
+        .card__footer.background-primary-base
+          span Footer
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Button
+    .card__body
+      .flex.justify-between.items-center.flex-wrap.gap-md.margin-bottom-sm
+        button.btn Basic
+        a.btn--outline Outline
+        a.btn--outline.btn--rounded Rounded
+        a.btn--outline.btn--small Small
+        a.btn--active Active
+
+      .flex.justify-between.items-center.flex-wrap.gap-md.margin-bottom-sm
+        a.btn--primary Primary
+        a.btn--outline.btn--primary Primary Outline
+        a.btn--outline.btn--primary.btn--rounded Primary Rounded
+        a.btn--outline.btn--primary.btn--small Primary Small
+
+      .flex.justify-between.items-center.flex-wrap.gap-md.margin-bottom-sm
+        a.btn--secondary Secondary
+        a.btn--outline.btn--secondary Secondary Outline
+        a.btn--outline.btn--secondary.btn--rounded Secondary Rounded
+        a.btn--outline.btn--secondary.btn--small Secondary Small
+
+      .flex.justify-between.items-center.flex-wrap.gap-md
+        a.btn--tertiary Tertiary
+        a.btn--outline.btn--tertiary Tertiary Outline
+        a.btn--outline.btn--tertiary.btn--rounded Tertiary Rounded
+        a.btn--outline.btn--tertiary.btn--small Tertiary Small
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Form
+    .card__body
+      .form__error-summary
+        h2 2 errors prohibited this from being saved
+        ul
+          li Tags rank is not a number
+          li Title can't be blank
+
+      form
+        .form__group.form__input--error
+          label.form__label Text Input
+          span.form__error Can't be blank
+          input.form__input type="text"
+
+        .form__group
+          label.form__label Textarea Input
+          textarea.form__input
+
+        .form__group
+          label.form__label Password Input
+          input.form__input type="password"
+          span.form__hint Here's a password hint
+
+        .form__group
+          label.form__label Number Input
+          input.form__input type="number"
+
+        .form__group
+          label.form__label Email Input
+          input.form__input type="email"
+
+        .form__group
+          label.form__label Phone Input
+          input.form__input type="phone"
+
+        .form__group
+          label.form__label Select Dropdown
+          select.form__dropdown
+            option Option 1
+            option Option 2
+            option Option 3
+
+        .form__group--checkbox
+          input id="checkbox" type="checkbox"
+          label.form__label for="checkbox" Checkbox
+        .form__group--checkbox
+          input id="checkbox-disabled" type="checkbox" disabled="disabled"
+          label.form__label for="checkbox-disabled" Disabled checkbox
+        .form__group--checkbox
+          input id="checkbox-disabled-checked" type="checkbox" disabled="disabled" checked="checked"
+          label.form__label for="checkbox-disabled-checked" Disabled checkbox (checked)
+
+        .form__group
+          input.form__radio id="form-radio-1" type="radio" name="radio" value="1"
+          label.form__label for="form-radio-1" Radio 1
+
+          input.form__radio id="form-radio-2" type="radio" name="radio" value="2"
+          label.form__label for="form-radio-2" Radio 2
+
+        .form__group
+          input.form__radio id="form-radio-disabled" type="radio" name="disabled-radio" value="1" disabled="disabled"
+          label.form__label for="form-radio-disabled" Radio Disabled
+
+          input.form__radio id="form-radio-disabled-checked" type="radio" name="disabled-radio" value="1" disabled="disabled" checked="checked"
+          label.form__label for="form-radio-disabled-checked" Radio Disabled checked
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title flash
+    .card__body
+      .flash.flash--notice
+        / = icon(icon_name_for_flash('notice'), classes: 'material-icons--lg')
+        .margin-left-md
+          .flash__message-type Notice
+          .flash__message .flash.flash--notice
+
+      .flex.layout-row.gap-md
+        .flash.flash--notice.flash--demo
+          / = icon(icon_name_for_flash('notice'), classes: 'material-icons--lg')
+          .margin-left-md
+            .flash__message-type Notice
+            .flash__message .flash.flash--notice
+
+        .flash.flash--info.flash--demo
+          / = icon(icon_name_for_flash('info'), classes: 'material-icons--lg')
+          .margin-left-md
+            .flash__message-type Info
+            .flash__message .flash.flash--info
+
+        .flash.flash--alert.flash--demo
+          / = icon(icon_name_for_flash('alert'), classes: 'material-icons--lg')
+          .margin-left-md
+            .flash__message-type Alert
+            .flash__message .flash.flash--alert
+
+        .flash.flash--warning.flash--demo
+          / = icon(icon_name_for_flash('warning'), classes: 'material-icons--lg')
+          .margin-left-md
+            .flash__message-type Warning
+            .flash__message .flash.flash--warning
+
+  section.card.margin-top-md
+    .card__header.background-primary-lightest
+      h2.styleguide-section__title Tables
+    .card__body
+      h2.margin-y-md.margin-left-md Table
+
+      table.table
+        thead
+          th Column 1
+          th Column 2
+          th
+            .text-right Action
+        tbody
+          tr
+            td
+              .flex.items-center.justify-start.margin-right-lg
+                | Data 1
+            td Data 2
+            td.text-right
+              a.btn.btn--outline.btn--small Label
+          tr
+            td
+              .flex.items-center.justify-start.margin-right-lg
+                | Data 4
+            td Data 5
+            td.text-right
+              a.btn.btn--outline.btn--small Label
+
+      .margin-top-sm
+        h2.margin-y-md.margin-left-md Form Table
+
+        form
+          table.table
+            thead
+              th Button
+              th Measure
+              th
+                .flex.justify-end Link
+            tbody
+              tr
+                td
+                  input type="radio" id="radio-1" name="radio-button" class="margin-right-sm" Button 1
+                td item/unit
+                td
+                  .flex.justify-end Other Information
+              tr
+                td
+                  input type="radio" id="radio-2" name="radio-button" class="margin-right-sm" Button 2
+                td item/unit
+                td
+                  .flex.justify-end Other Information
+              tr.form__submit
+                td
+                td
+                td
+                  .flex.justify-end.items-center
+                    button.btn.btn--outline Cancel
+                    button.btn.btn--primary.margin-left-sm type="submit" Submit
+
+      .margin-top-sm
+        h2.margin-y-md.margin-left-md Styled Table
+
+        .card.elevation-3
+          table.table.table--no-last-divider
+            thead
+              th.background-primary-lighter Column 1
+              th.background-primary-lighter Column 2
+              th.background-primary-lighter
+                .text-right Action
+            tbody.background-primary-lightest
+              tr
+                td Data 1
+                td Data 2
+                td.text-right
+                  a.btn.btn--outline.btn--small Label
+              tr
+                td Data 3
+                td Data 4
+                td.text-right
+                  a.btn.btn--outline.btn--small Label

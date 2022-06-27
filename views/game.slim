@@ -1,0 +1,17 @@
+.text-center.margin-y-xl
+  h1 Game
+
+.flex.justify-center
+  .card.two-fifths-width
+    form action='/game' method='get'
+      .card__header
+        h3 Players
+
+        .card__body
+          ul
+            - game.players.each do |player|
+              - if player.name == current_player.name
+                li: b #{player.name}
+              - else 
+                li #{player.name}
+

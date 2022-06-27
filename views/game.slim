@@ -14,4 +14,5 @@
                 li: b #{player.name}
               - else 
                 li #{player.name}
-
+              -if game.players.count <= 1
+                p Waiting on players... 

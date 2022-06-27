@@ -7,10 +7,16 @@ ENV['RACK_ENV'] = 'test'
 require_relative '../server'
 
 RSpec.describe Server do
+  let(:session1) { Capybara::Session.new(:rack_test, Server.new) }
+  let(:session2) { Capybara::Session.new(:rack_test, Server.new) }
   # include Rack::Test::Methods
   include Capybara::DSL
   before do
     Capybara.app = Server.new
+  end
+
+  after do
+    Server.close
   end
 
   it 'is possible to join a game' do
@@ -22,9 +28,6 @@ RSpec.describe Server do
   end
 
   it 'allows multiple players to join game' do
-    session1 = Capybara::Session.new(:rack_test, Server.new)
-    session2 = Capybara::Session.new(:rack_test, Server.new)
-
     [ session1, session2 ].each_with_index do |session, index|
       player_name = "Player #{index + 1}"
       session.visit '/'
@@ -37,4 +40,14 @@ RSpec.describe Server do
     session1.driver.refresh
     expect(session1).to have_content('Player 2')
   end
+
+   it 'shows that it\'s waiting on players when only one player is connected' do
+      [ session1 ].each_with_index do |session, index|
+      player_name = "Player #{index + 1}"
+      session.visit '/'
+      session.fill_in :name, with: player_name
+      session.click_on 'Join'
+      expect(session).to have_content('Waiting on players...')
+    end
+   end
 end

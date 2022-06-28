@@ -2,7 +2,7 @@
   h1 Game
 
 .flex.justify-center
-  .card.full-width.margin-x-md
+  .card--padded.full-width.margin-x-md
     form action='/game' method='get'
       .card__header
         h3 Players
@@ -24,10 +24,23 @@
   .card--padded.half-width.margin-left-md
     form action='/game' method='get'
       .card__header
-        h3 Cards
+        h3 Select a card from your hand
         .card__body
           ul
-            - game.players.find {|player| player.name == current_player.name}.hand.each_with_index do |card, index| 
+            - current_player.hand.each_with_index do |card, index|
               .form__group 
                 input.form__radio id='rank-radio-#{index + 1}' type='radio' name='rank-radio' value="#{card.rank}"
                 label.form__label for='rank-radio-#{index + 1}' = card.rank
+
+  .card--padded.half-width.margin-right-md
+    form action='/game' method='get'
+      .card__header 
+        <h3> Select a player to ask </h3>
+          .card__body
+            ul 
+              - game.players.each_with_index do |player, index| 
+                .form__group 
+                  input.form__radio id='name-radio-#{index + 1}' type='radio' name='name-radio' value="#{player.name}"
+                  label.form__label for='name-radio-#{index + 1}' = player.name
+.flex.justify-center.margin-y-lg 
+  btn.btn--primary type='submit' href='/game' Ask

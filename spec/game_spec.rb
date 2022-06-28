@@ -53,4 +53,14 @@ describe Game do
       expect(game.turn_player.name).to eq 'Braden'
     end
   end
+
+  describe '#find_player' do
+    it 'finds a player based off their name and returns the correct object' do
+      game = Game.new([Player.new('Braden'), Player.new('Josh')])
+      player1 = game.find_player('Braden')
+      player2 = game.find_player('Josh')
+      expect(player1.name).to eq 'Braden'
+      expect(player2.name).to eq 'Josh'
+    end
+  end
 end

@@ -44,4 +44,8 @@ class Game
     return if started_status
     players.count >= 2
   end 
+
+  def find_player(name)
+    players.find {|player| player.name == name}
+  end
 end

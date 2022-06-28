@@ -20,12 +20,14 @@
             -else 
               li It's #{game.turn_player.name}'s turn
 
-.flex.justify-center
-  .card.full-width.margin-x-md
+.flex
+  .card--padded.half-width.margin-left-md
     form action='/game' method='get'
       .card__header
         h3 Cards
         .card__body
           ul
-            - game.players.find {|player| player.name == current_player.name}.hand.each do |card| 
-              li.playing-card = card
+            - game.players.find {|player| player.name == current_player.name}.hand.each_with_index do |card, index| 
+              .form__group 
+                input.form__radio id='rank-radio-#{index + 1}' type='radio' name='rank-radio' value="#{card.rank}"
+                label.form__label for='rank-radio-#{index + 1}' = card.rank

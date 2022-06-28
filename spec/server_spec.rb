@@ -74,7 +74,8 @@ RSpec.describe Server do
       session.fill_in :name, with: player_name
       session.click_on 'Join'
     end
-    expect(session1).to have_css('btn', class: 'btn--primary', count: 1)
+    expect(session1).to have_css('button', class: 'btn--primary', count: 1)
+    session1.click_on 'Ask'
 
     # select card, player, then ask
     # expect player1's hand to not be the basic 7 cards 

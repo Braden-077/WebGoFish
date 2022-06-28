@@ -42,5 +42,6 @@
                 .form__group 
                   input.form__radio id='name-radio-#{index + 1}' type='radio' name='name-radio' value="#{player.name}"
                   label.form__label for='name-radio-#{index + 1}' = player.name
-.flex.justify-center.margin-y-lg 
-  btn.btn--primary type='submit' href='/game' Ask
+          .card__footer
+            .flex.justify-end
+              button.btn--primary type='submit' Ask

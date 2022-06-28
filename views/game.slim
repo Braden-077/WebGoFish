@@ -15,3 +15,5 @@
                 li #{player.name}
               -if game.players.count <= 1
                 p Waiting on players... 
+              -if player.name === current_player.name 
+                p #{player.hand.map(&:to_s)}

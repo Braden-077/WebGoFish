@@ -2,7 +2,7 @@
   h1 Game
 
 .flex.justify-center
-  .card
+  .card.full-width.margin-x-md
     form action='/game' method='get'
       .card__header
         h3 Players
@@ -15,5 +15,17 @@
                 li #{player.name}
               -if game.players.count <= 1
                 p Waiting on players... 
-              -if player.name === current_player.name 
-                p #{player.hand.map(&:to_s)}
+            -if game.turn_player.name == current_player.name 
+              li: b It's your turn!
+            -else 
+              li It's #{game.turn_player.name}'s turn
+
+.flex.justify-center
+  .card.full-width.margin-x-md
+    form action='/game' method='get'
+      .card__header
+        h3 Cards
+        .card__body
+          ul
+            - game.players.find {|player| player.name == current_player.name}.hand.each do |card| 
+              li.playing-card = card

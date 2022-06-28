@@ -37,6 +37,7 @@ class Server < Sinatra::Base
 
   get '/game' do
     redirect '/' if self.class.game.empty?
+    self.class.game.start if self.class.game.ready_to_start?
     slim :game, locals: { game: self.class.game, current_player: session[:current_player] }
   end
 end

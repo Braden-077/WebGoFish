@@ -44,4 +44,13 @@ describe Game do
       expect(game.deck.cards_left).to eq Deck.new.cards_left - hand_count * game.players.count
     end
   end
+
+  describe '#turn_player' do
+    it 'returns the proper turn player' do
+      game = Game.new([Player.new('Josh'), Player.new('Braden')])
+      expect(game.turn_player.name).to eq 'Josh'
+      game.up_round
+      expect(game.turn_player.name).to eq 'Braden'
+    end
+  end
 end

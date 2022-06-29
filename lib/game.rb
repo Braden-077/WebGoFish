@@ -70,7 +70,6 @@ class Game
   end
 
   def return_opponent_names 
-    get_names = players.reject {|player| player == turn_player}
-    get_names.map {|player| player.name}
+    players.reject {|player| player == turn_player}.map {|player| player.name}
   end
 end

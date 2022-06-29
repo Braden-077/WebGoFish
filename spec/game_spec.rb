@@ -71,6 +71,13 @@ describe Game do
       game.go_fish
       expect(game.players.first.hand).not_to be_empty
     end
+
+    it 'handles an empty deck' do
+      game = Game.new([Player.new('Josh'), Player.new('Braden')], Deck.new([]))
+      expect(game.turn_player.name).to eq 'Josh'
+      game.go_fish
+      expect(game.turn_player.name).to eq 'Braden'
+    end
   end
 
   describe '#play_round' do
@@ -110,5 +117,10 @@ describe Game do
     end
   end
 
-  describe ''
+  describe '#return_opponent_names' do
+    it 'returns only the player opponents' do
+      game = Game.new([Player.new('Josh'), Player.new('Braden'), Player.new('William'), Player.new('Jeremy')])
+      expect(game.return_opponent_names).to eq ['Braden', 'William', 'Jeremy']
+    end
+  end
 end

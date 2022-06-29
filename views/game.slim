@@ -1,8 +1,8 @@
 .text-center.margin-y-xl
   h1 Game
 
-.flex.justify-center
-  form action='/play_round' method='post'
+form action='/play_round' method='post'
+  .flex.justify-center
     .card--padded.full-width
       .card__header
         h3 Players
@@ -13,32 +13,44 @@
               li: b #{player.name}
             - else 
               li #{player.name}
-            -if game.players.count <= 1
-              p Waiting on players... 
+          -if game.players.count <= 1
+            p Waiting on players... 
           -if game.turn_player.name == current_player.name 
             li: b It's your turn!
           -else 
             li It's #{game.turn_player.name}'s turn
+  -if game.turn_player == current_player
+    .flex
+      .card--padded.half-width
+        .card__header
+          h3 Select a rank from your hand
+        .card__body
+          .form__group 
+            label.form__label for='rank'
+            select.form__dropdown name='rank'
+              - current_player.show_unique_cards.each do |rank|
+                option = rank
 
-.flex
-.card--padded.half-width
-  .card__header
-    h3 Select a rank from your hand
-  .card__body
-    - current_player.show_unique_cards.each_with_index do |rank, index|
-      .form__group 
-        input.form__radio id='rank-radio-#{index + 1}' type='radio' name='rank' value="#{rank}"
-        label.form__label for='rank-radio-#{index + 1}' = rank
-
-.card--padded.half-width
-  .card__header 
-    h3 Select a player to ask
-  .card__body
-    - game.players.each_with_index do |player, index|  
-      - if player != current_player
-        .form__group 
-          input.form__radio id='name-radio-#{index}' type='radio' name='player-name' value="#{player.name}"
-          label.form__label for='name-radio-#{index}' = player.name
-  .card__footer
-    .flex.justify-center
-      button.btn--primary type='submit' Ask
+      .card--padded.half-width
+        .card__header 
+          h3 Select a player to ask
+        .card__body
+          - game.players.each_with_index do |player, index|  
+            .form__group 
+              label.form__label for='player-name'
+              select.form__dropdown name='player-name'
+                -game.return_opponent_names.each do |name|
+                    option = name
+                / input.form__radio id='name-radio-#{index}' type='radio' name='player-name' value="#{player.name}"
+                / label.form__label for='name-radio-#{index}' = player.name
+        .card__footer
+          .flex.justify-center
+            button.btn--primary type='submit' Ask
+  -else 
+    .flex 
+      .card--padded.full-width 
+        .card__header 
+          h3 Your cards 
+        .card__body 
+          -current_player.hand.each do |card|
+            li #{card}

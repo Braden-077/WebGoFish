@@ -19,6 +19,7 @@ class Game
   end
 
   def go_fish
+    return up_round if deck.cards.empty?
     card = turn_player.take_cards(deck.deal)
     card.rank
   end
@@ -66,5 +67,10 @@ class Game
 
   def find_player(name)
     players.find {|player| player.name == name}
+  end
+
+  def return_opponent_names 
+    get_names = players.reject {|player| player == turn_player}
+    get_names.map {|player| player.name}
   end
 end

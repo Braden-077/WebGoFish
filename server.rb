@@ -15,6 +15,10 @@ class Server < Sinatra::Base
     env["PATH_INFO"].sub!("/assets", "")
     settings.environment.call(env)
   end
+
+  get '/denied_access' do
+    slim :denied_access
+  end
   
   def self.game
     @@game ||= Game.new
@@ -29,10 +33,11 @@ class Server < Sinatra::Base
   end
 
   post '/join' do
+    redirect '/denied_access' if self.class.game.players.count >=2
     player = Player.new(params['name'])
     session[:current_player] = player
     self.class.game.add_player(player)
-    redirect '/game'
+    redirect '/game' if self.class.game.players.any? {|person| person.name == params['name']}
   end
 
   get '/game' do

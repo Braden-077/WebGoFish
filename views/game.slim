@@ -10,9 +10,9 @@ form action='/play_round' method='post'
         ul
           - game.players.each do |player|
             - if player.name == current_player.name
-              li: b #{player.name}
+              li: b #{player.name} [#{player.books.count} books]
             - else 
-              li #{player.name}
+              li #{player.name} [#{player.books.count} books]
           -if game.players.count <= 1
             p Waiting on players... 
           -if game.turn_player.name == current_player.name 
@@ -42,7 +42,7 @@ form action='/play_round' method='post'
                   option = name
         .card__footer
           .flex.justify-center
-            button.btn--primary type='submit' Ask
+            button.btn-primary type='submit' Ask
   -else 
     .flex 
       .card--padded.full-width 

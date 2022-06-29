@@ -72,16 +72,15 @@ RSpec.describe Server do
 
     it 'ends the turn if the player does not have it' do
       session_setup([session1, session2])
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [])
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('3', 'D')])
       session1.driver.refresh
-      session2.save_and_open_page
       
       session1.select 'A', from: 'rank'
       session1.select 'Player 2', from: 'player-name'
       session1.click_on 'Ask'
       
       session1.driver.refresh
-      session2.save_and_open_page
+
       expect(session1).to have_no_content('It\'s your turn')
       expect(session1).to have_content('It\'s Player 2\'s turn')
       session2.driver.refresh

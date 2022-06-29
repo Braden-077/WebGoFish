@@ -17,6 +17,20 @@ class Game
     players.empty?
   end
 
+  def go_fish
+    card = turn_player.take_cards(deck.deal)
+    card.rank
+  end
+
+  def play_round(rank, player_name)
+    player = find_player(player_name)
+    if player.has_rank?(rank)
+      turn_player.take_cards(player.give_cards(rank))
+    elsif !player.has_rank?(rank)
+      up_round unless go_fish == rank
+    end
+  end
+
   def start
     deck.shuffle! 
     determined_card_num.times {players.each {|player| player.take_cards(deck.deal)}}

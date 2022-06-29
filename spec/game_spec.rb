@@ -63,4 +63,38 @@ describe Game do
       expect(player2.name).to eq 'Josh'
     end
   end
+
+  describe '#go_fish' do
+    it 'has the player take a card when told to go fish' do
+      game = Game.new([Player.new('John'), Player.new('Braden')])
+      expect(game.players.first.hand).to be_empty
+      game.go_fish
+      expect(game.players.first.hand).not_to be_empty
+    end
+  end
+
+  describe '#play_round' do
+    it 'takes an opponent\'s card when there are matching cards' do
+      game = Game.new([Player.new('John', [Card.new('A', 'S')]), Player.new('Braden', [Card.new('A', 'C')])])
+      game.started_status = true
+      game.play_round('A', 'Braden')
+      expect(game.players.last.hand).to be_empty
+      expect(game.players.first.hand).to match_array [Card.new('A', 'S'), Card.new('A', 'C')]
+    end
+
+    it 'makes a player go fish if their opponent does not have the card they asked for' do
+      game = Game.new([Player.new('John', [Card.new('A', 'S')]), Player.new('Braden', [Card.new('9', 'C')])])
+      game.started_status = true 
+      game.play_round('A', 'Braden')
+      expect(game.turn_player.name).to eq 'Braden'
+    end
+
+    it 'allows a player go fish and pickup the card they asked for' do
+      game = Game.new([Player.new('John', [Card.new('2', 'S')]), Player.new('Braden', [Card.new('9', 'C')])])
+      game.started_status = true 
+      game.play_round('2', 'Braden')
+      expect(game.turn_player.name).to eq 'John'
+      expect(game.turn_player.hand).to match_array [Card.new('2', 'S'), Card.new('2', 'C')]
+    end
+  end
 end

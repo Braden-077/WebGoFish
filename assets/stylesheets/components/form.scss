@@ -45,7 +45,7 @@ label {
 }
 
 .form__dropdown {
-  height: 2.7rem;
+  height: 4.4rem;
   padding: var(--rm-space-small) var(--rm-space-medium);
   line-height: 1.2;
   outline: 0;
@@ -99,7 +99,8 @@ label {
     }
 
     // Box
-    &:before, &:after {
+    &:before,
+    &:after {
       content: "";
       position: absolute;
       left: -16px;
@@ -131,13 +132,13 @@ label {
     display: none;
 
     &:checked {
-      + label:before {
+      +label:before {
         // background color of box when checked
         background: var(--rm-color-primary-base);
         border-color: var(--rm-color-primary-base);
       }
 
-      + label:after {
+      +label:after {
         // Checkmark
         transition: transform 300ms ease, opacity 200ms;
         transform: rotate(var(--r, -40deg));
@@ -148,15 +149,15 @@ label {
         top: 4px;
         $checkmark-size: 1.25em - 2 * .25em;
         width: $checkmark-size;
-        height: calc($checkmark-size /  2);
+        height: calc($checkmark-size / 2);
       }
     }
 
     &:disabled {
-      + label {
+      +label {
         cursor: not-allowed;
 
-        &:before{
+        &:before {
           border-color: var(--rm-color-neutral-variant-on-plus-3);
           background-color: var(--rm-color-neutral-variant-plus-3);
           cursor: not-allowed;
@@ -169,7 +170,7 @@ label {
       }
 
       &:checked {
-        + label:before {
+        +label:before {
           border-color: var(--rm-color-neutral-variant-on-plus-3);
           background-color: var(--rm-color-neutral-variant-plus-3);
           cursor: not-allowed;
@@ -243,7 +244,7 @@ label {
       }
     }
 
-    & + label {
+    &+label {
       // color: var(--color-disabled);
       cursor: not-allowed;
     }
@@ -261,7 +262,7 @@ label {
     box-shadow: 0 0 0 2px var(--rm-color-info-lighter);
   }
 
-  & + label {
+  &+label {
     font-size: 14px;
     line-height: 21px;
     display: inline-block;
@@ -285,6 +286,7 @@ label {
   h2 {
     font-size: var(--rm-font-medium);
   }
+
   ul {
     margin-bottom: 0;
   }

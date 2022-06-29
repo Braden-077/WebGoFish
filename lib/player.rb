@@ -50,7 +50,6 @@ class Player
   end
 
   def show_unique_cards
-    unique_card_ranks = hand.map {|card| card.rank}
-    unique_card_ranks.uniq
+    hand.map {|card| card.rank}.uniq
   end
 end

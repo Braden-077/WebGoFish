@@ -2,6 +2,7 @@ require_relative 'deck'
 
 class Game
   attr_accessor :players, :deck, :round_count, :started_status
+  TOTAL_BOOKS = 13
   def initialize(players = [], deck = Deck.new)
     @players = players
     @deck = deck
@@ -29,6 +30,10 @@ class Game
     elsif !player.has_rank?(rank)
       up_round unless go_fish == rank
     end
+  end
+
+  def over?
+    players.sum {|player| player.books.length} == TOTAL_BOOKS
   end
 
   def start

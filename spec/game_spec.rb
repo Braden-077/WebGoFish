@@ -97,4 +97,16 @@ describe Game do
       expect(game.turn_player.hand).to match_array [Card.new('2', 'S'), Card.new('2', 'C')]
     end
   end
+
+  describe '#over?' do
+    it 'returns true when all 13 books have been collected' do
+      game = Game.new([Player.new('Josh', [] ,%w(2 3 4 5 6 7 8 9 10)), Player.new('Braden',[] , %w(J Q K A))])
+      expect(game.over?).to be true
+    end
+    
+    it 'returns false when only a portion of books have been collected' do
+      game = Game.new([Player.new('Josh', [] ,%w(2 3 4 5 6 7 8 9 )), Player.new('Braden',[] , %w(J Q A))])
+      expect(game.over?).to be false
+    end
+  end
 end

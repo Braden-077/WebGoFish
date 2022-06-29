@@ -1,4 +1,6 @@
 # frozen_string_literal: true 
+
+require 'pry'
 class Player
   attr_accessor :name, :hand, :books
   def initialize(name = '', hand =  [], books = [])
@@ -45,5 +47,10 @@ class Player
 
   def sort_hand
     hand.sort!.delete_if {|card| card.nil?}
+  end
+
+  def show_unique_cards
+    unique_card_ranks = hand.map {|card| card.rank}
+    unique_card_ranks.uniq
   end
 end

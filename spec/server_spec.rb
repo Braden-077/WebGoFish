@@ -59,9 +59,9 @@ RSpec.describe Server do
       session.click_on 'Join'
     end
     session1.driver.refresh
-    expect(session1).to have_css('input', class: 'form__radio', count: 9)
+    expect(session1).to have_css('input', class: 'form__radio')
     expect(session1).to have_no_content(Server.game.players.last.hand)
-    expect(session2).to have_css('input', class: 'form__radio', count: 9)
+    expect(session2).to have_css('input', class: 'form__radio')
     expect(session2).to have_no_content(Server.game.players.first.hand)
     expect(session1).to have_content('It\'s your turn')
     expect(session2).to have_content('It\'s Player 1\'s turn')
@@ -74,9 +74,13 @@ RSpec.describe Server do
       session.fill_in :name, with: player_name
       session.click_on 'Join'
     end
+    session1.driver.refresh
     expect(session1).to have_css('button', class: 'btn--primary', count: 1)
+    # session1.save_and_open_page
+    session1.choose 'rank-radio-1'
+    session1.choose 'name-radio-1'
     session1.click_on 'Ask'
-
+    # expect(Server.game.players.first.hand_count).to 
     # select card, player, then ask
     # expect player1's hand to not be the basic 7 cards 
     # expect round result to have posted something new 

@@ -65,4 +65,11 @@ describe Player do
       expect(player.has_rank?('4')).to be false
     end
   end
+
+  describe '#show_unique_cards' do
+    it 'only shows one card for two\'s and three\'s' do
+      player = Player.new('Josh', [Card.new('2', 'S'), Card.new('2', 'C'), Card.new('3', 'D'), Card.new('3', 'H')])
+      expect(player.show_unique_cards).to match_array ['2', '3']
+    end
+  end
 end

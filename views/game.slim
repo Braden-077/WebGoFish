@@ -2,7 +2,7 @@
   h1 Game
 
 .flex.justify-center
-  .card--padded.full-width.margin-x-md
+  .card--padded.full-width
     form action='/game' method='get'
       .card__header
         h3 Players
@@ -20,28 +20,25 @@
             -else 
               li It's #{game.turn_player.name}'s turn
 
-.flex
-  .card--padded.half-width.margin-left-md
-    form action='/game' method='get'
+form action='/play_round' method='post'
+  .flex
+    .card--padded.half-width
       .card__header
-        h3 Select a card from your hand
-        .card__body
-          ul
-            - current_player.hand.each_with_index do |card, index|
-              .form__group 
-                input.form__radio id='rank-radio-#{index + 1}' type='radio' name='rank-radio' value="#{card.rank}"
-                label.form__label for='rank-radio-#{index + 1}' = card.rank
+        h3 Select a rank from your hand
+      .card__body
+        - current_player.show_unique_cards.each_with_index do |rank, index|
+          .form__group 
+            input.form__radio id='rank-radio-#{index + 1}' type='radio' name='rank' value="#{rank}"
+            label.form__label for='rank-radio-#{index + 1}' = rank
 
-  .card--padded.half-width.margin-right-md
-    form action='/game' method='get'
+    .card--padded.half-width
       .card__header 
-        <h3> Select a player to ask </h3>
-          .card__body
-            ul 
-              - game.players.each_with_index do |player, index|  
-                .form__group 
-                  input.form__radio id='name-radio-#{index + 1}' type='radio' name='name-radio' value="#{player.name}"
-                  label.form__label for='name-radio-#{index + 1}' = player.name
-          .card__footer
-            .flex.justify-center
-              button.btn--primary type='submit' Ask
+        h3 Select a player to ask
+      .card__body
+        - game.players.each_with_index do |player, index|  
+          .form__group 
+            input.form__radio id='name-radio-#{index + 1}' type='radio' name='player-name' value="#{player.name}"
+            label.form__label for='name-radio-#{index + 1}' = player.name
+      .card__footer
+        .flex.justify-center
+          button.btn--primary type='submit' Ask

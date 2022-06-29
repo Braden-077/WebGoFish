@@ -41,4 +41,13 @@ class Server < Sinatra::Base
     player = self.class.game.find_player(session[:current_player].name)
     slim :game, locals: { game: self.class.game, current_player: player }
   end
+
+  get '/styleguide' do
+    slim :styleguide
+  end
+
+  post '/play_round' do
+    self.class.game.play_round(params['rank'], params['player-name'])
+    redirect '/game'
+  end
 end

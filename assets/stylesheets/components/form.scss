@@ -23,7 +23,7 @@ label {
 }
 
 .form__input {
-  height: auto;
+  height: var(--rm-input-height-large);
   display: block;
   width: 100%;
   padding: var(--rm-space-small) var(--rm-space-medium);
@@ -31,21 +31,23 @@ label {
   line-height: 1.5;
   background-color: var(--rm-color-background);
   color: var(--rm-color-on-background);
-  border: var(--rm-border-width) solid var(--rm-color-outline);
+
+  border: none;
+  box-shadow: var(--rm-border-all) var(--rm-border-color);
+
   font-weight: var(--rm-font-weight-light);
   will-change: border-color, box-shadow;
   border-radius: var(--rm-radius-large);
-  box-shadow: none;
 
   &:focus {
     color: var(--rm-color-on-background);
     outline: 0;
-    border-color: var(--rm-color-on-background);
+    box-shadow: var(--rm-border-all) var(--rm-color-on-background);
   }
 }
 
 .form__dropdown {
-  height: 4.4rem;
+  height: var(--rm-input-height-large);
   padding: var(--rm-space-small) var(--rm-space-medium);
   line-height: 1.2;
   outline: 0;
@@ -53,7 +55,10 @@ label {
   background-size: 30px 15px;
   background-color: var(--rm-color-background);
   color: var(--rm-color-on-background);
-  border: var(--rm-border-width) solid var(--rm-color-outline);
+
+  border: none;
+  box-shadow: var(--rm-border-all) var(--rm-border-color);
+
   font-weight: var(--rm-font-weight-light);
   font-size: var(--rm-font-small);
   border-radius: var(--rm-radius-large);
@@ -64,13 +69,13 @@ label {
 
   &:hover:not(:focus):not(:disabled) {
     cursor: pointer;
-    border-color: var(--rm-color-on-background);
+    box-shadow: var(--rm-border-all) var(--rm-color-on-background);
   }
 
   &:focus,
   &:focus-within {
-    border-color: var(--rm-color-on-background);
     outline: 0;
+    box-shadow: var(--rm-border-all) var(--rm-color-on-background);
   }
 }
 
@@ -99,8 +104,7 @@ label {
     }
 
     // Box
-    &:before,
-    &:after {
+    &:before, &:after {
       content: "";
       position: absolute;
       left: -16px;
@@ -109,7 +113,7 @@ label {
 
     &:hover {
       &:before {
-        border-color: var(--rm-color-primary-base);
+        box-shadow: var(--rm-border-all) var(--rm-color-primary-base);
       }
     }
 
@@ -118,7 +122,7 @@ label {
       height: 20px;
       background: var(--rm-color-background);
       color: var(--rm-color-on-background);
-      border: var(--rm-border-width) solid var(--rm-color-outline);
+      box-shadow: var(--rm-border-all) var(--rm-border-color);
       border-radius: var(--rm-space-2x-small);
       cursor: pointer;
       transition: background 300ms, border 300ms;
@@ -132,13 +136,13 @@ label {
     display: none;
 
     &:checked {
-      +label:before {
+      + label:before {
         // background color of box when checked
         background: var(--rm-color-primary-base);
-        border-color: var(--rm-color-primary-base);
+        box-shadow: var(--rm-border-all) var(--rm-color-primary-base);
       }
 
-      +label:after {
+      + label:after {
         // Checkmark
         transition: transform 300ms ease, opacity 200ms;
         transform: rotate(var(--r, -40deg));
@@ -149,30 +153,30 @@ label {
         top: 4px;
         $checkmark-size: 1.25em - 2 * .25em;
         width: $checkmark-size;
-        height: calc($checkmark-size / 2);
+        height: calc($checkmark-size /  2);
       }
     }
 
     &:disabled {
-      +label {
+      + label {
         cursor: not-allowed;
 
-        &:before {
-          border-color: var(--rm-color-neutral-variant-on-plus-3);
-          background-color: var(--rm-color-neutral-variant-plus-3);
+        &:before{
+          border-color: var(--rm-color-neutral-on-plus-3);
+          background-color: var(--rm-color-neutral-plus-3);
           cursor: not-allowed;
         }
 
         &:after {
           // Checkmark
-          border-color: var(--rm-color-neutral-variant-on-plus-3);
+          border-color: var(--rm-color-neutral-on-plus-3);
         }
       }
 
       &:checked {
-        +label:before {
-          border-color: var(--rm-color-neutral-variant-on-plus-3);
-          background-color: var(--rm-color-neutral-variant-plus-3);
+        + label:before {
+          border-color: var(--rm-color-neutral-on-plus-3);
+          background-color: var(--rm-color-neutral-plus-3);
           cursor: not-allowed;
         }
       }
@@ -191,7 +195,7 @@ label {
   position: relative;
   margin: 0;
   cursor: pointer;
-  border: var(--rm-border-width) solid var(--rm-color-outline);
+  box-shadow: var(--rm-border-all) var(--rm-border-color);
   background: var(--rm-color-white);
   transition: background .3s, border-color .3s, box-shadow .2s;
   border-radius: 50%;
@@ -199,7 +203,7 @@ label {
   // Blue circle when checked
   &:checked {
     background: var(--rm-color-primary-base);
-    border-color: var(--rm-color-primary-base);
+    box-shadow: var(--rm-border-all) var(--rm-color-primary-base);
   }
 
   // White circle
@@ -220,23 +224,23 @@ label {
 
   // Disabled
   &:disabled {
-    background-color: var(--rm-color-neutral-variant-plus-3);
-    border-color: var(--rm-color-neutral-variant-on-plus-3);
+    background-color: var(--rm-color-neutral-plus-3);
+    border-color: var(--rm-color-neutral-on-plus-3);
     cursor: not-allowed;
 
     &:after {
       // hide white circle
       opacity: 0;
-      color: var(--rm-color-neutral-variant-on-plus-3);
-      background-color: var(--rm-color-neutral-variant-on-plus-3);
+      color: var(--rm-color-neutral-on-plus-3);
+      background-color: var(--rm-color-neutral-on-plus-3);
     }
 
     &:checked {
       // background: var(--neutral-layer-2-background);
       // border-color: var(--neutral-layer-2-border);
 
-      background-color: var(--rm-color-neutral-variant-plus-3);
-      border-color: var(--rm-color-neutral-variant-on-plus-3);
+      background-color: var(--rm-color-neutral-plus-3);
+      border-color: var(--rm-color-neutral-on-plus-3);
 
       &:after {
         // show white circle
@@ -244,7 +248,7 @@ label {
       }
     }
 
-    &+label {
+    & + label {
       // color: var(--color-disabled);
       cursor: not-allowed;
     }
@@ -262,7 +266,7 @@ label {
     box-shadow: 0 0 0 2px var(--rm-color-info-lighter);
   }
 
-  &+label {
+  & + label {
     font-size: 14px;
     line-height: 21px;
     display: inline-block;
@@ -286,7 +290,6 @@ label {
   h2 {
     font-size: var(--rm-font-medium);
   }
-
   ul {
     margin-bottom: 0;
   }

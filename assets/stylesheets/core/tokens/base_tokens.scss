@@ -1,32 +1,17 @@
 // Using Mixins allows us to include them at a component level
 // as needed and override them.
 
-// A 5 color theme. 3 main colors, a neutral color and a neutral variant
+// A theme comprised of a pimary color and a neutral color with a hint of the primary color.
 @mixin color-varieties {
   // Primary HSL
   --rm-color-primary-h: var(--rm-color-blue-h);
   --rm-color-primary-s: var(--rm-color-blue-s);
   --rm-color-primary-l: var(--rm-color-blue-l);
 
-  // Secondary HSL
-  --rm-color-secondary-h: var(--rm-color-teal-h);
-  --rm-color-secondary-s: var(--rm-color-teal-s);
-  --rm-color-secondary-l: var(--rm-color-teal-l);
-
-  // Tertiary HSL
-  --rm-color-tertiary-h: var(--rm-color-violet-h);
-  --rm-color-tertiary-s: var(--rm-color-violet-s);
-  --rm-color-tertiary-l: var(--rm-color-violet-l);
-
   // Neutral HSL
-  --rm-color-neutral-h: 240;
+  --rm-color-neutral-h: var(--rm-color-primary-h);
   --rm-color-neutral-s: 2%;
-  --rm-color-neutral-l: 38%;
-
-  // Neutral Variant HSL
-  --rm-color-neutral-variant-h: 229;
-  --rm-color-neutral-variant-s: 6%;
-  --rm-color-neutral-variant-l: 38%;
+  --rm-color-neutral-l: var(--rm-color-primary-l);
 }
 
 @mixin border-radius {
@@ -38,14 +23,26 @@
   --rm-radius-pill:    9999px;
 }
 
-@mixin border-width {
+@mixin border-widths {
   --rm-border-width:         1px;
   --rm-border-width-large:   2px;
   --rm-border-width-x-large: 4px;
 }
 
-@mixin border-strokes {
-  --rm-border-card-outline: 0 0 0 var(--rm-border-width) var(--rm-color-outline);
+@mixin border-colors {
+  --rm-border-color: var(--rm-color-neutral-plus-1);
+}
+
+@mixin box-shadows {
+  // E.G. box-shadow: var(--rm-border-top) var(--rm-border-color);
+  --rm-border-all: 0 0 0 var(--rm-border-width);
+  --rm-border-top: 0 calc(-1 * var(--rm-border-width)) 0 0;
+  --rm-border-right: var(--rm-border-width) 0 0 0;
+  --rm-border-bottom: 0 var(--rm-border-width) 0 0;
+  --rm-border-left: calc(-1 * var(--rm-border-width)) 0 0 0;
+
+  --rm-border-y: var(--rm-border-top) var(--rm-border-color), var(--rm-border-bottom) var(--rm-border-color);
+  --rm-border-x: var(--rm-border-left) var(--rm-border-color), var(--rm-border-right) var(--rm-border-color);
 }
 
 @mixin font-scales {
@@ -119,6 +116,15 @@
   --rm-z-index-tooltip: 1000;
 }
 
+@mixin inputs {
+  // This should follow multiples of 4
+  // https: //uxdesign.cc/baseline-grids-design-systems-ae23b5af8cec See example 8
+  --rm-input-height-small:   2.4rem; // 24px
+  --rm-input-height-medium:  3.2rem; // 32px
+  --rm-input-height-large:   4.4rem; // 44px
+  --rm-input-height-x-large: 5.6rem; // 56px
+}
+
 // We use SCSS variables outside the root since support for custom properties / css variables
 // is not yet available
 // https://drafts.csswg.org/css-env-1/
@@ -135,9 +141,10 @@ $breakpoint-x-large: 1440px; // medium laptop
   @include color-varieties;
 
   // Border
-  @include border-strokes;
   @include border-radius;
-  @include border-width;
+  @include border-widths;
+  @include border-colors;
+  @include box-shadows;
 
   // Font
   @include font-scales;
@@ -155,4 +162,7 @@ $breakpoint-x-large: 1440px; // medium laptop
 
   // Z Index
   @include z-indexes;
+
+  // Inputs
+  @include inputs;
 }

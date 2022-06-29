@@ -47,6 +47,7 @@ class Server < Sinatra::Base
   end
 
   post '/play_round' do
+    self.class.game.start if self.class.game.ready_to_start?
     self.class.game.play_round(params['rank'], params['player-name'])
     redirect '/game'
   end

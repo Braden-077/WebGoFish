@@ -34,15 +34,12 @@ form action='/play_round' method='post'
       .card--padded.half-width
         .card__header 
           h3 Select a player to ask
-        .card__body
-          - game.players.each_with_index do |player, index|  
+        .card__body 
             .form__group 
               label.form__label for='player-name'
               select.form__dropdown name='player-name'
                 -game.return_opponent_names.each do |name|
-                    option = name
-                / input.form__radio id='name-radio-#{index}' type='radio' name='player-name' value="#{player.name}"
-                / label.form__label for='name-radio-#{index}' = player.name
+                  option = name
         .card__footer
           .flex.justify-center
             button.btn--primary type='submit' Ask

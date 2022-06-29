@@ -59,7 +59,7 @@ RSpec.describe Server do
   describe 'taking a turn' do
     it 'takes a card when the player has it' do
      session_setup([session1, session2])
-     rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'D')], [])
+     rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'D')], [], true)
      session1.driver.refresh
 
      session1.select 'A', from: 'rank'
@@ -72,18 +72,16 @@ RSpec.describe Server do
 
     it 'ends the turn if the player does not have it' do
       session_setup([session1, session2])
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [])
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [], true)
       session1.driver.refresh
       
       session1.select 'A', from: 'rank'
       session1.select 'Player 2', from: 'player-name'
       session1.click_on 'Ask'
-
+      
       # then
-      # session1.save_and_open_page
-      # session2.save_and_open_page
-      expect(session1).to have_no_content('It\'s your turn')
       session1.driver.refresh
+      expect(session1).to have_no_content('It\'s your turn')
       expect(session1).to have_content('It\'s Player 2\'s turn')
       session2.driver.refresh
       expect(session2).to have_content('It\'s your turn')
@@ -109,10 +107,11 @@ RSpec.describe Server do
       session.click_on 'Join'
     end
 
-    def rig_game(hand1, hand2, deck)
+    def rig_game(hand1, hand2, deck, started_status)
       Server.game.players[0].hand = hand1
       Server.game.players[1].hand = hand2
       Server.game.deck.cards = deck
+      Server.game.started_status = started_status
     end
   end
 end

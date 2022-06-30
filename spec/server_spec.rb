@@ -122,7 +122,9 @@ RSpec.describe Server do
       session1.click_on 'Ask'
 
       expect(session1).to have_content('Game is over.. I guess!')
+      expect(session1.current_path).to eq '/game_over'
       expect(session2).to have_content('Game is over.. I guess!')
+      expect(session2.current_path).to eq '/game_over'
     end
 
     it 'redirects extra players instead of allowing them to join the game' do

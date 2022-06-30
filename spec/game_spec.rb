@@ -123,4 +123,8 @@ describe Game do
       expect(game.return_opponent_names).to eq ['Braden', 'William', 'Jeremy']
     end
   end
+
+  describe '#check_emptiness' do
+    
+  end
 end

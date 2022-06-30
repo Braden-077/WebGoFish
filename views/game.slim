@@ -2,8 +2,8 @@
   h1 Game
 
 form action='/play_round' method='post'
-  .flex.justify-center
-    .card--padded.full-width
+  .flex
+    .card.half-width
       .card__header
         h3 Players
       .card__body
@@ -19,35 +19,32 @@ form action='/play_round' method='post'
             li: b It's your turn!
           -else 
             li It's #{game.turn_player.name}'s turn
-  -if game.turn_player == current_player
-    .flex
-      .card--padded.half-width
-        .card__header
-          h3 Select a rank from your hand
+    .card.half-width
+      .card__header 
+        h3 Round Results 
+      .card__body 
+        -game.history.each do |result|
+          li #{result}
+  .flex
+    .card.flex-grow-1
+      .card__header 
+        h3 Your cards 
+      .card__body.half-height
+        -current_player.hand.each do |card|
+          li #{card}
+    -if game.turn_player == current_player
+      .card.half-width
         .card__body
           .form__group 
-            label.form__label for='rank'
+            label.form__label for='rank' Select a rank from your hand
             select.form__dropdown name='rank'
               - current_player.show_unique_cards.each do |rank|
                 option = rank
-
-      .card--padded.half-width
-        .card__header 
-          h3 Select a player to ask
-        .card__body 
-            .form__group 
-              label.form__label for='player-name'
-              select.form__dropdown name='player-name'
-                -game.return_opponent_names.each do |name|
-                  option = name
+          .form__group 
+            label.form__label for='player-name' Select a player to ask
+            select.form__dropdown name='player-name'
+              -game.return_opponent_names.each do |name|
+                option = name
         .card__footer
-          .flex.justify-center
+          .flex.justify-end
             button.btn-primary type='submit' Ask
-  -else 
-    .flex 
-      .card--padded.full-width 
-        .card__header 
-          h3 Your cards 
-        .card__body 
-          -current_player.hand.each do |card|
-            li #{card}

@@ -3,6 +3,12 @@
 class Card
   SUITS = ['C', 'H', 'D', 'S']
   RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+  HUMANIZED_SUITS = {
+    'C' => 'Clubs',
+    'H' => 'Hearts',
+    'D' => 'Diamonds',
+    'S' => 'Spades'
+  }
 
   attr_reader :rank, :suit
   def initialize(rank, suit)
@@ -26,6 +32,6 @@ class Card
   end
 
   def to_s
-    "#{rank} of #{suit}"
+    "#{rank} of #{HUMANIZED_SUITS.fetch(suit)}"
   end
 end

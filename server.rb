@@ -44,7 +44,7 @@ class Server < Sinatra::Base
   end
 
   get '/game_over' do
-    silm :game_over
+    slim :game_over
   end
 
   post '/join' do
@@ -58,6 +58,7 @@ class Server < Sinatra::Base
 
   get '/game' do
     redirect '/' if self.class.game.empty?
+    redirect '/game_over' if self.class.game.over?
     self.class.game.start if self.class.game.ready_to_start?
     player = self.class.game.find_player(session[:current_player].name)
     slim :game, locals: { game: self.class.game, current_player: player }
@@ -68,9 +69,9 @@ class Server < Sinatra::Base
   end
 
   post '/play_round' do
-    redirect '/game_over' if self.class.game.over?
     self.class.game.play_round(params['rank'], params['player-name'])
     pusher_client.trigger('go-fish', 'game-changed', { message: "Round over." })
+    self.class.game.check_emptiness
     redirect '/game'
   end
 end

@@ -96,6 +96,33 @@ RSpec.describe Server do
       expect(session1).to have_no_content('It\'s Player 2\'s turn')
       expect(session2).to have_no_content('It\'s your turn')
     end
+
+    it 'gives the current player a card if their hand is empty' do
+      session_setup([session1, session2])
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [], [Card.new('3', 'D'), Card.new('4', 'D')], [session1, session2])
+
+      session1.select 'A', from: 'rank'
+      session1.select 'Player 2', from: 'player-name'
+      session1.click_on 'Ask'
+
+      expect(session2).to have_content('It\'s your turn')
+      
+      session2.select '4', from: 'rank'
+      session2.select 'Player 1', from: 'player-name'
+      session2.click_on 'Ask'
+    end
+
+    it 'sends the players to the game over screen when the game ends' do
+      session_setup([session1, session2])
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'H'), Card.new('A', 'D')], [], [session1, session2], book1: ['2', '3', '4', '5', '6', '7', '8', '9'], book2: ['10', 'J', 'Q', 'K'])
+
+      session1.select 'A', from: 'rank'
+      session1.select 'Player 2', from: 'player-name'
+      session1.click_on 'Ask'
+
+      expect(session1).to have_content('Game is over.. I guess!')
+      expect(session2).to have_content('Game is over.. I guess!')
+    end
   end
   def session_setup(sessions)
     sessions.each_with_index do |session, index|
@@ -105,9 +132,11 @@ RSpec.describe Server do
       session.click_on 'Join'
     end
 
-    def rig_game(hand1, hand2, deck, sessions)
+    def rig_game(hand1, hand2, deck, sessions, book1: [], book2: [])
       Server.game.players[0].hand = hand1
+      Server.game.players[0].books = book1
       Server.game.players[1].hand = hand2
+      Server.game.players[1].books = book2
       Server.game.deck.cards = deck
       sessions.each {|session| session.driver.refresh}
     end

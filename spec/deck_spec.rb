@@ -10,7 +10,7 @@ describe Deck do
     end
 
     it 'allows for the user to build a deck using one card, should they want to' do
-      deck = Deck.new([Card.new('A', 'S')])
+      deck = Deck.new([Card.new('Ace', 'S')])
       expect(deck.cards_left).to eq 1
     end
   end

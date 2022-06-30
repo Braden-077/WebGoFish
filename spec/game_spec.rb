@@ -82,21 +82,21 @@ describe Game do
 
   describe '#play_round' do
     it 'takes an opponent\'s card when there are matching cards' do
-      game = Game.new([Player.new('John', [Card.new('A', 'S')]), Player.new('Braden', [Card.new('A', 'C')])])
+      game = Game.new([Player.new('John', [Card.new('Ace', 'S')]), Player.new('Braden', [Card.new('Ace', 'C')])])
       game.started_status = true
-      game.play_round('A', 'Braden')
+      game.play_round('Ace', 'Braden')
       expect(game.players.last.hand).to be_empty
-      expect(game.players.first.hand).to match_array [Card.new('A', 'S'), Card.new('A', 'C')]
-      expect(game.history).to eq ['John took A\'s from Braden!']
+      expect(game.players.first.hand).to match_array [Card.new('Ace', 'S'), Card.new('Ace', 'C')]
+      expect(game.history).to eq ['John took Ace\'s from Braden!']
     end
 
     it 'makes a player go fish if their opponent does not have the card they asked for' do
-      game = Game.new([Player.new('John', [Card.new('A', 'S')]), Player.new('Braden', [Card.new('9', 'C')])])
+      game = Game.new([Player.new('John', [Card.new('Ace', 'S')]), Player.new('Braden', [Card.new('9', 'C')])])
       game.started_status = true 
       expect(game.turn_player.name).to eq 'John'
-      game.play_round('A', 'Braden')
+      game.play_round('Ace', 'Braden')
       expect(game.turn_player.name).to eq 'Braden'
-      expect(game.history).to eq ["John asked Braden for A's. Go fish!", "John went fish and failed!"]
+      expect(game.history).to eq ["John asked Braden for Ace's. Go fish!", "John went fish and failed!"]
     end
 
     it 'allows a player go fish and pickup the card they asked for' do
@@ -138,26 +138,26 @@ describe Game do
     end
 
     it 'Adds a card to the player\'s hand when it\'s empty' do
-      game = Game.new([Player.new('Josh'), Player.new('Braden')], Deck.new([Card.new('A', 'S')]))
+      game = Game.new([Player.new('Josh'), Player.new('Braden')], Deck.new([Card.new('Ace', 'S')]))
       expect(game.round_count).to eq 1
       game.check_emptiness
       expect(game.round_count).to eq 1
-      expect(game.players.first.hand).to eq [Card.new('A', 'S')]
+      expect(game.players.first.hand).to eq [Card.new('Ace', 'S')]
       expect(game.history).to eq ["Josh ran out of cards! Have one from the deck, on me!"]
     end
 
     it 'does an early return when player hand is not empty' do
-      game = Game.new([Player.new('Josh', [Card.new('A', 'C')]), Player.new('Braden')], Deck.new([]))
+      game = Game.new([Player.new('Josh', [Card.new('Ace', 'C')]), Player.new('Braden')], Deck.new([]))
       expect(game.round_count).to eq 1
       game.check_emptiness
       expect(game.round_count).to eq 1
-      expect(game.players.first.hand).to eq [Card.new('A', 'C')]
+      expect(game.players.first.hand).to eq [Card.new('Ace', 'C')]
     end
   end
 
   describe '#winner' do
     it 'returns the player with the most books' do
-      game = Game.new([Player.new('Braden', [], ['2', '3', '4', '5', '6', '7', '8', '9', '10']), Player.new('Josh', [], ['J', 'Q', 'K', 'A'])])
+      game = Game.new([Player.new('Braden', [], ['2', '3', '4', '5', '6', '7', '8', '9', '10']), Player.new('Josh', [], ['Jack', 'Queen', 'King', 'Ace'])])
       expect(game.winner.name).to eq 'Braden'
     end
   end

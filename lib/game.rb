@@ -93,7 +93,7 @@ class Game
 
   def history # tested in play_round
     if round_results.length > players.count
-      round_results.shift until round_results.length <= (players.count + 1)
+      round_results.shift until round_results.length <= (players.count + 2)
     end
     round_results
   end

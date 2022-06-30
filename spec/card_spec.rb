@@ -5,14 +5,14 @@ require 'card'
 describe Card do
   describe 'valid initialization' do
     it 'allows for valid ranks and suits' do
-      card = Card.new('A', 'S')
-      expect(card.rank).to eq 'A'
+      card = Card.new('Ace', 'S')
+      expect(card.rank).to eq 'Ace'
       expect(card.suit).to eq 'S'
     end
 
     it 'tests the ranks if they are the same' do
-      card1 = Card.new('A', 'S')
-      card2 = Card.new('A', 'C')
+      card1 = Card.new('Ace', 'S')
+      card2 = Card.new('Ace', 'C')
       expect(card1).to be_same_rank(card2.rank)
     end
   end

@@ -61,40 +61,37 @@ RSpec.describe Server do
 
   describe 'taking a turn' do
     it 'takes a card when the player has it' do
-     session_setup(normal_sessions)
-     rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'D')], [], normal_sessions)
+      session_setup(normal_sessions)
+      rig_game([Card.new('Ace', 'S'), Card.new('Ace', 'C')], [Card.new('Ace', 'D')], [], normal_sessions)
+    
+      session1.select 'Ace', from: 'rank'
+      session1.select 'Player 2', from: 'player-name'
+      session1.click_on 'Ask'
 
-     session1.select 'A', from: 'rank'
-     session1.select 'Player 2', from: 'player-name'
-     session1.click_on 'Ask'
-
-     expect(session2).to have_no_css('select', class: 'form__dropdown')
-     expect(session1).to have_content('It\'s your turn')
+      expect(session2).to have_no_css('select', class: 'form__dropdown')
+      expect(session1).to have_content('It\'s your turn')
     end
 
     it 'ends the turn if the player does not have it' do
       session_setup(normal_sessions)
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('3', 'D')], normal_sessions)
+      rig_game([Card.new('Ace', 'S'), Card.new('Ace', 'C')], [Card.new('2', 'D')], [Card.new('3', 'D')], normal_sessions)
 
-      
-      session1.select 'A', from: 'rank'
+      session1.select 'Ace', from: 'rank'
       session1.select 'Player 2', from: 'player-name'
       session1.click_on 'Ask'
-      
-
-
+  
       expect(session1).to have_no_content('It\'s your turn')
-      expect(session1).to have_content("You asked Player 2 for A's. Go fish!")
+      expect(session1).to have_content("You asked Player 2 for Ace's. Go fish!")
       expect(session1).to have_content('It\'s Player 2\'s turn')
-      expect(session2).to have_content("Player 1 asked You for A's. Go fish!")
+      expect(session2).to have_content("Player 1 asked You for Ace's. Go fish!")
       expect(session2).to have_content('It\'s your turn')
     end
 
     it 'continues turn if fishing is successful' do
       session_setup(normal_sessions)
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('A', 'D')], normal_sessions)
+      rig_game([Card.new('Ace', 'S'), Card.new('Ace', 'C')], [Card.new('2', 'D')], [Card.new('Ace', 'D')], normal_sessions)
 
-      session1.select 'A', from: 'rank'
+      session1.select 'Ace', from: 'rank'
       session1.select 'Player 2', from: 'player-name'
       session1.click_on 'Ask'
 
@@ -105,9 +102,9 @@ RSpec.describe Server do
 
     it 'gives the current player a card if their hand is empty' do
       session_setup(normal_sessions)
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [], [Card.new('3', 'D'), Card.new('4', 'D')], normal_sessions)
+      rig_game([Card.new('Ace', 'S'), Card.new('Ace', 'C')], [], [Card.new('3', 'D'), Card.new('4', 'D')], normal_sessions)
 
-      session1.select 'A', from: 'rank'
+      session1.select 'Ace', from: 'rank'
       session1.select 'Player 2', from: 'player-name'
       session1.click_on 'Ask'
 
@@ -120,9 +117,9 @@ RSpec.describe Server do
 
     it 'sends the players to the game over screen when the game ends' do
       session_setup(normal_sessions)
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'H'), Card.new('A', 'D')], [], normal_sessions, book1: ['2', '3', '4', '5', '6', '7', '8', '9'], book2: ['10', 'J', 'Q', 'K'])
+      rig_game([Card.new('Ace', 'S'), Card.new('Ace', 'C')], [Card.new('Ace', 'H'), Card.new('Ace', 'D')], [], normal_sessions, book1: ['2', '3', '4', '5', '6', '7', '8', '9'], book2: ['10', 'Jack', 'Queen', 'King'])
 
-      session1.select 'A', from: 'rank'
+      session1.select 'Ace', from: 'rank'
       session1.select 'Player 2', from: 'player-name'
       session1.click_on 'Ask'
 

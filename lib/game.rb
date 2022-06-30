@@ -32,7 +32,7 @@ class Game
     player = find_player(player_name)
     current_player = turn_player
     if player.has_rank?(rank)
-      turn_player.take_cards(player.give_cards(rank))
+      current_player.take_cards(player.give_cards(rank))
       successful_take_message(current_player, rank, player)
     elsif !player.has_rank?(rank)
       failure_to_take_message(current_player, rank, player)
@@ -93,7 +93,7 @@ class Game
 
   def history # tested in play_round
     if round_results.length > players.count
-      round_results.shift until round_results.length <= players.count
+      round_results.shift until round_results.length <= (players.count + 1)
     end
     round_results
   end

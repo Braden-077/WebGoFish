@@ -15,13 +15,13 @@ form action='/play_round' method='post'
               li #{player.name} [#{player.books.count} books]
           -if game.players.count <= 1
             p Waiting on players... 
-          -if game.turn_player.name == current_player.name 
-            li: b It's your turn!
-          -else 
-            li It's #{game.turn_player.name}'s turn
     .card.half-width
       .card__header 
         h3 Round Results 
+        -if game.turn_player.name == current_player.name 
+          li: b It's your turn!
+        -else 
+          li It's #{game.turn_player.name}'s turn
       .card__body 
         -game.history.each do |result|
           li = current_player.format(result)

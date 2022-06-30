@@ -11,6 +11,7 @@ require_relative '../server'
 RSpec.describe Server do
   let(:session1) { Capybara::Session.new(:selenium_chrome_headless, Server.new) }
   let(:session2) { Capybara::Session.new(:selenium_chrome_headless, Server.new) }
+  let(:session3) { Capybara::Session.new(:selenium_chrome_headless, Server.new) }
   # include Rack::Test::Methods
   include Capybara::DSL
   before do
@@ -122,6 +123,12 @@ RSpec.describe Server do
 
       expect(session1).to have_content('Game is over.. I guess!')
       expect(session2).to have_content('Game is over.. I guess!')
+    end
+
+    it 'redirects extra players instead of allowing them to join the game' do
+      session_setup([session1, session2, session3])
+
+      expect(session3.current_path).to eq '/denied_access'
     end
   end
   def session_setup(sessions)

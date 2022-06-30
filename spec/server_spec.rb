@@ -84,7 +84,9 @@ RSpec.describe Server do
 
 
       expect(session1).to have_no_content('It\'s your turn')
+      expect(session1).to have_content("You asked Player 2 for A's. Go fish!")
       expect(session1).to have_content('It\'s Player 2\'s turn')
+      expect(session2).to have_content("Player 1 asked You for A's. Go fish!")
       expect(session2).to have_content('It\'s your turn')
     end
 

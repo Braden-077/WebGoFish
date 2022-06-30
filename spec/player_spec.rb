@@ -72,4 +72,14 @@ describe Player do
       expect(player.show_unique_cards).to match_array ['2', '3']
     end
   end
+
+  describe '#format' do
+    it 'should replace their name in a string with you' do
+      player1 = Player.new('Josh')
+      player2 = Player.new('Braden')
+      result = 'Josh took A\'s from Braden.' 
+      expect(player1.format(result)).to eq 'You took A\'s from Braden.'
+      expect(player2.format(result)).to eq 'Josh took A\'s from You.'
+    end
+  end
 end

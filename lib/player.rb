@@ -9,6 +9,10 @@ class Player
     @books = books
   end
 
+  def format(result)
+    result.gsub(name, 'You')
+  end
+
   def take_cards(cards)
     hand.push(cards).flatten!
     check_for_books

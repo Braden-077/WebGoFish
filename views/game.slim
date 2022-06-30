@@ -24,7 +24,7 @@ form action='/play_round' method='post'
         h3 Round Results 
       .card__body 
         -game.history.each do |result|
-          li #{result}
+          li = current_player.format(result)
   .flex
     .card.flex-grow-1
       .card__header 

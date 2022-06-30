@@ -1,7 +1,7 @@
 require_relative 'deck'
 
 class Game
-  attr_accessor :players, :deck, :round_count, :started_status
+  attr_accessor :players, :deck, :round_count, :started_status, :round_results
   TOTAL_BOOKS = 13
   MAX_PLAYERS = 2
   def initialize(players = [], deck = Deck.new)
@@ -9,11 +9,13 @@ class Game
     @deck = deck
     @started_status = false
     @round_count = 1
+    @round_results = []
   end
 
   def add_player(player)
     return if players.count >= MAX_PLAYERS
     players.push(player)
+    round_results.push('A new challenger approaches!')
   end
 
   def empty?
@@ -28,10 +30,12 @@ class Game
 
   def play_round(rank, player_name)
     player = find_player(player_name)
+    current_player = turn_player
     if player.has_rank?(rank)
       turn_player.take_cards(player.give_cards(rank))
+      successful_take_message(current_player, rank, player)
     elsif !player.has_rank?(rank)
-      up_round unless go_fish == rank
+      send_fishing(current_player, rank, player)
     end
   end
 
@@ -78,13 +82,46 @@ class Game
   def check_emptiness
     return unless turn_player.hand.empty?
     if turn_player.hand.empty? && deck.cards.empty?
+      round_results.push("#{turn_player.name}'s hand is empty and the deck is empty! Next!")
       up_round
     elsif turn_player.hand_empty?
+      round_results.push("#{turn_player.name} ran out of cards! Have one from the deck, on me!")
       turn_player.take_cards(deck.deal)
     end
   end
 
-  def history
-    ['result1', 'result2', 'result3']
+  def history # tested in play_round
+    if round_results.length > players.count
+      round_results.shift until round_results.length <= players.count
+    end
+    round_results
+  end
+
+  private # all of these are helper methods called during play_round
+
+  def successful_take_message(turn_player, rank, asked_player)
+    round_results.push("#{turn_player.name} took #{rank}'s from #{asked_player.name}!")
+  end
+
+  def failure_to_take_message(turn_player, rank, asked_player)
+    round_results.push("#{turn_player.name} asked #{asked_player.name} for #{rank}'s. Go fish!")
+  end
+
+  def successful_fishing_message(turn_player, rank)
+    round_results.push("#{turn_player.name} went fishing and succeeded in fishing a #{rank}!")
+  end
+
+  def failure_fishing_message(turn_player)
+   round_results.push("#{turn_player.name} went fish and failed!")
+  end
+   
+  def send_fishing(current_player, rank, asked_player)
+    if go_fish == rank
+      successful_fishing_message(current_player, rank)
+    else
+      up_round
+      failure_to_take_message(current_player, rank, asked_player)
+      failure_fishing_message(current_player)
+    end
   end
 end

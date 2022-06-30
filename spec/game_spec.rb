@@ -87,13 +87,16 @@ describe Game do
       game.play_round('A', 'Braden')
       expect(game.players.last.hand).to be_empty
       expect(game.players.first.hand).to match_array [Card.new('A', 'S'), Card.new('A', 'C')]
+      expect(game.history).to eq ['John took A\'s from Braden!']
     end
 
     it 'makes a player go fish if their opponent does not have the card they asked for' do
       game = Game.new([Player.new('John', [Card.new('A', 'S')]), Player.new('Braden', [Card.new('9', 'C')])])
       game.started_status = true 
+      expect(game.turn_player.name).to eq 'John'
       game.play_round('A', 'Braden')
       expect(game.turn_player.name).to eq 'Braden'
+      expect(game.history).to eq ["John asked Braden for A's. Go fish!", "John went fish and failed!"]
     end
 
     it 'allows a player go fish and pickup the card they asked for' do
@@ -102,6 +105,7 @@ describe Game do
       game.play_round('2', 'Braden')
       expect(game.turn_player.name).to eq 'John'
       expect(game.turn_player.hand).to match_array [Card.new('2', 'S'), Card.new('2', 'C')]
+      expect(game.history).to eq ["John went fishing and succeeded in fishing a 2!"]
     end
   end
 
@@ -130,6 +134,7 @@ describe Game do
       expect(game.round_count).to eq 1
       game.check_emptiness
       expect(game.round_count).to eq 2
+      expect(game.history).to eq ["Josh's hand is empty and the deck is empty! Next!"]
     end
 
     it 'Adds a card to the player\'s hand when it\'s empty' do
@@ -138,6 +143,7 @@ describe Game do
       game.check_emptiness
       expect(game.round_count).to eq 1
       expect(game.players.first.hand).to eq [Card.new('A', 'S')]
+      expect(game.history).to eq ["Josh ran out of cards! Have one from the deck, on me!"]
     end
 
     it 'does an early return when player hand is not empty' do

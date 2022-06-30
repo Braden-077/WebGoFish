@@ -105,7 +105,7 @@ describe Game do
       game.play_round('2', 'Braden')
       expect(game.turn_player.name).to eq 'John'
       expect(game.turn_player.hand).to match_array [Card.new('2', 'S'), Card.new('2', 'C')]
-      expect(game.history).to eq ["John went fishing and succeeded in fishing a 2!"]
+      expect(game.history).to eq ["John asked Braden for 2's. Go fish!", "John went fishing and succeeded in fishing a 2!"]
     end
   end
 

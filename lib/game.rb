@@ -35,7 +35,8 @@ class Game
       turn_player.take_cards(player.give_cards(rank))
       successful_take_message(current_player, rank, player)
     elsif !player.has_rank?(rank)
-      send_fishing(current_player, rank, player)
+      failure_to_take_message(current_player, rank, player)
+      send_fishing(current_player, rank)
     end
   end
 
@@ -120,12 +121,11 @@ class Game
    round_results.push("#{turn_player.name} went fish and failed!")
   end
    
-  def send_fishing(current_player, rank, asked_player)
+  def send_fishing(current_player, rank)
     if go_fish == rank
       successful_fishing_message(current_player, rank)
     else
       up_round
-      failure_to_take_message(current_player, rank, asked_player)
       failure_fishing_message(current_player)
     end
   end

@@ -44,7 +44,7 @@ class Server < Sinatra::Base
   end
 
   get '/game_over' do
-    slim :game_over
+    slim :game_over, locals: { game: self.class.game}
   end
 
   post '/join' do

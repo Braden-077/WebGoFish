@@ -97,6 +97,11 @@ class Game
     round_results
   end
 
+  def winner
+    book_counts = players.map {|player| player.books.count}
+    players.reject {|people| people.books.count != book_counts.max }.first
+  end
+
   private # all of these are helper methods called during play_round
 
   def successful_take_message(turn_player, rank, asked_player)

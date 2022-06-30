@@ -154,4 +154,11 @@ describe Game do
       expect(game.players.first.hand).to eq [Card.new('A', 'C')]
     end
   end
+
+  describe '#winner' do
+    it 'returns the player with the most books' do
+      game = Game.new([Player.new('Braden', [], ['2', '3', '4', '5', '6', '7', '8', '9', '10']), Player.new('Josh', [], ['J', 'Q', 'K', 'A'])])
+      expect(game.winner.name).to eq 'Braden'
+    end
+  end
 end

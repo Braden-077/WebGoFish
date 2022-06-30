@@ -1,1 +1,13 @@
-h1 Game is over.. I guess!
+.flex.justify-center
+  h1 Game Over
+form action='/' method='get'
+  .flex
+    .card--padded
+      h2 Winner: #{game.winner.name} 
+      h2 Books: #{game.winner.books.count} 
+  .flex.justify-end
+      button.btn-primary type='submit' Play again
+
+
+      
+    

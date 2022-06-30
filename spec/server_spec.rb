@@ -126,10 +126,13 @@ RSpec.describe Server do
       session1.select 'Player 2', from: 'player-name'
       session1.click_on 'Ask'
 
-      expect(session1).to have_content('Game is over.. I guess!')
+      expect(session1).to have_content('Game Over')
       expect(session1.current_path).to eq '/game_over'
-      expect(session2).to have_content('Game is over.. I guess!')
+      expect(session2).to have_content('Game Over')
       expect(session2.current_path).to eq '/game_over'
+      normal_sessions.each {|session| expect(session).to have_button('Play again') }
+      session1.click_on 'Play again'
+      expect(session1.current_path).to eq '/'
     end
 
     it 'redirects extra players instead of allowing them to join the game' do

@@ -85,15 +85,16 @@ RSpec.describe Server do
     end
 
     it 'continues turn if fishing is successful' do
-      # given 
-      # rigged game, 2 sessions
+      session_setup([session1, session2])
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('A', 'D')], [session1, session2])
 
-      # when
-      # player1 asks player2 for a card he doesn't have
-      # player1 succeeds in fishing
+      session1.select 'A', from: 'rank'
+      session1.select 'Player 2', from: 'player-name'
+      session1.click_on 'Ask'
 
-      #then
-      # player1's turn
+      expect(session1).to have_content('It\'s your turn')
+      expect(session1).to have_no_content('It\'s Player 2\'s turn')
+      expect(session2).to have_no_content('It\'s your turn')
     end
   end
   def session_setup(sessions)

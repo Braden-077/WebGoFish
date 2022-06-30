@@ -3,13 +3,14 @@ require 'rspec'
 require 'capybara'
 require 'capybara/dsl'
 require 'pry'
+require 'webdrivers'
 require 'card'
 ENV['RACK_ENV'] = 'test'
 require_relative '../server'
  
 RSpec.describe Server do
-  let(:session1) { Capybara::Session.new(:rack_test, Server.new) }
-  let(:session2) { Capybara::Session.new(:rack_test, Server.new) }
+  let(:session1) { Capybara::Session.new(:selenium_chrome_headless, Server.new) }
+  let(:session2) { Capybara::Session.new(:selenium_chrome_headless, Server.new) }
   # include Rack::Test::Methods
   include Capybara::DSL
   before do
@@ -35,7 +36,6 @@ RSpec.describe Server do
     expect(session1).to have_css('b', text: 'Player 1')
     expect(session2).to have_css('b', text: 'Player 2')
     expect(session2).to have_content('Player 1')
-    session1.driver.refresh
     expect(session1).to have_content('Player 2')
   end
 
@@ -47,7 +47,6 @@ RSpec.describe Server do
 
   it 'starts the game when two players have joined' do
     session_setup([session1, session2])
-    session1.driver.refresh
     expect(session1).to have_css('select', class: 'form__dropdown')
     expect(session1).to have_no_content(Server.game.players.last.hand)
     expect(session2).to have_no_css('select', class: 'form__dropdown')
@@ -59,8 +58,7 @@ RSpec.describe Server do
   describe 'taking a turn' do
     it 'takes a card when the player has it' do
      session_setup([session1, session2])
-     rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'D')], [])
-     session1.driver.refresh
+     rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'D')], [], [session1, session2])
 
      session1.select 'A', from: 'rank'
      session1.select 'Player 2', from: 'player-name'
@@ -72,18 +70,17 @@ RSpec.describe Server do
 
     it 'ends the turn if the player does not have it' do
       session_setup([session1, session2])
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('3', 'D')])
-      session1.driver.refresh
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('3', 'D')], [session1, session2])
+
       
       session1.select 'A', from: 'rank'
       session1.select 'Player 2', from: 'player-name'
       session1.click_on 'Ask'
       
-      session1.driver.refresh
+
 
       expect(session1).to have_no_content('It\'s your turn')
       expect(session1).to have_content('It\'s Player 2\'s turn')
-      session2.driver.refresh
       expect(session2).to have_content('It\'s your turn')
     end
 
@@ -107,10 +104,11 @@ RSpec.describe Server do
       session.click_on 'Join'
     end
 
-    def rig_game(hand1, hand2, deck)
+    def rig_game(hand1, hand2, deck, sessions)
       Server.game.players[0].hand = hand1
       Server.game.players[1].hand = hand2
       Server.game.deck.cards = deck
+      sessions.each {|session| session.driver.refresh}
     end
   end
 end

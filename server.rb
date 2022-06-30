@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'pusher'
 require 'sprockets'
 require 'sass'
 require_relative 'lib/game'
@@ -14,6 +15,16 @@ class Server < Sinatra::Base
   get "/assets/*" do
     env["PATH_INFO"].sub!("/assets", "")
     settings.environment.call(env)
+  end
+
+  def pusher_client
+    @pusher_client ||= Pusher::Client.new(
+      app_id: "1430657",
+      key: "f8902beee86dc0f3da1c",
+      secret: "a691039411bca05e7415",
+      cluster: "us2",
+      useTLS: true
+    )
   end
 
   get '/denied_access' do
@@ -32,11 +43,16 @@ class Server < Sinatra::Base
     slim :index
   end
 
+  get '/game_over' do
+    silm :game_over
+  end
+
   post '/join' do
     redirect '/denied_access' if self.class.game.players.count >=2
     player = Player.new(params['name'])
     session[:current_player] = player
     self.class.game.add_player(player)
+    pusher_client.trigger('go-fish', 'game-changed', { message: "A new challenger approaches! Welcome, #{player.name}." })
     redirect '/game' if self.class.game.players.any? {|person| person.name == params['name']}
   end
 
@@ -52,7 +68,9 @@ class Server < Sinatra::Base
   end
 
   post '/play_round' do
+    redirect '/game_over' if self.class.game.over?
     self.class.game.play_round(params['rank'], params['player-name'])
+    pusher_client.trigger('go-fish', 'game-changed', { message: "Round over." })
     redirect '/game'
   end
 end

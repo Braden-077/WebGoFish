@@ -16,7 +16,7 @@ class Player
   def take_cards(cards)
     hand.push(cards).flatten!
     check_for_books
-    sort_hand
+    sort_hand!
     cards
   end
 
@@ -39,7 +39,7 @@ class Player
   end
 
   def check_for_books
-    hand.delete_if {|card| card.nil?}
+    hand.compact!
     card_ranks = hand.map {|card| card.rank}
     Card::RANKS.each do |rank| 
       if card_ranks.count {|card_rank| rank == card_rank} == 4
@@ -49,8 +49,8 @@ class Player
     end
   end
 
-  def sort_hand
-    hand.sort!.delete_if {|card| card.nil?}
+  def sort_hand!
+    hand.sort!.compact!
   end
 
   def show_unique_cards

@@ -49,10 +49,10 @@ describe Player do
     end
   end
 
-  describe '#sort_hand' do
+  describe '#sort_hand!' do
     it 'sorts the hand' do 
       player = Player.new('Braden', [Card.new('Queen', 'S'), nil, nil, nil, Card.new('2', 'H'), nil, Card.new('7', 'D'), Card.new('8', 'C'), nil])
-      player.sort_hand
+      player.sort_hand!
       expect(player.hand).to eq [Card.new('2', 'H'), Card.new('7', 'D'), Card.new('8', 'C'), Card.new('Queen', 'S')]
     end
   end

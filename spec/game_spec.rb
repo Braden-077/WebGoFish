@@ -125,6 +125,27 @@ describe Game do
   end
 
   describe '#check_emptiness' do
-    
+    it 'ups the round when the deck is empty' do
+      game = Game.new([Player.new('Josh'), Player.new('Braden')], Deck.new([]))
+      expect(game.round_count).to eq 1
+      game.check_emptiness
+      expect(game.round_count).to eq 2
+    end
+
+    it 'Adds a card to the player\'s hand when it\'s empty' do
+      game = Game.new([Player.new('Josh'), Player.new('Braden')], Deck.new([Card.new('A', 'S')]))
+      expect(game.round_count).to eq 1
+      game.check_emptiness
+      expect(game.round_count).to eq 1
+      expect(game.players.first.hand).to eq [Card.new('A', 'S')]
+    end
+
+    it 'does an early return when player hand is not empty' do
+      game = Game.new([Player.new('Josh', [Card.new('A', 'C')]), Player.new('Braden')], Deck.new([]))
+      expect(game.round_count).to eq 1
+      game.check_emptiness
+      expect(game.round_count).to eq 1
+      expect(game.players.first.hand).to eq [Card.new('A', 'C')]
+    end
   end
 end

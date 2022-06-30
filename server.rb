@@ -48,14 +48,14 @@ class Server < Sinatra::Base
   end
 
   post '/join' do
-    redirect '/denied_access' if self.class.game.players.count >=2
     player = Player.new(params['name'])
     session[:current_player] = player
     self.class.game.add_player(player)
+    redirect '/denied_access' if self.class.game.players.none? {|person| person.name == params['name']}
     pusher_client.trigger('go-fish', 'game-changed', { message: "A new challenger approaches! Welcome, #{player.name}." })
-    redirect '/game' if self.class.game.players.any? {|person| person.name == params['name']}
+    redirect '/game'
   end
-
+  
   get '/game' do
     redirect '/' if self.class.game.empty?
     redirect '/game_over' if self.class.game.over?

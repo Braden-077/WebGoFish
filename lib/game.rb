@@ -3,6 +3,7 @@ require_relative 'deck'
 class Game
   attr_accessor :players, :deck, :round_count, :started_status
   TOTAL_BOOKS = 13
+  MAX_PLAYERS = 2
   def initialize(players = [], deck = Deck.new)
     @players = players
     @deck = deck
@@ -11,6 +12,7 @@ class Game
   end
 
   def add_player(player)
+    return if players.count >= MAX_PLAYERS
     players.push(player)
   end
 
@@ -71,5 +73,18 @@ class Game
 
   def return_opponent_names 
     players.reject {|player| player == turn_player}.map {|player| player.name}
+  end
+
+  def check_emptiness
+    return unless turn_player.hand.empty?
+    if turn_player.hand.empty? && deck.cards.empty?
+      up_round
+    elsif turn_player.hand_empty?
+      turn_player.take_cards(deck.deal)
+    end
+  end
+
+  def history
+    ['result1', 'result2', 'result3']
   end
 end

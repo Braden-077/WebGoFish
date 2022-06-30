@@ -12,6 +12,8 @@ RSpec.describe Server do
   let(:session1) { Capybara::Session.new(:selenium_chrome_headless, Server.new) }
   let(:session2) { Capybara::Session.new(:selenium_chrome_headless, Server.new) }
   let(:session3) { Capybara::Session.new(:selenium_chrome_headless, Server.new) }
+  let(:all_sessions) { [session1, session2, session3]}
+  let(:normal_sessions) { [session1, session2]}
   # include Rack::Test::Methods
   include Capybara::DSL
   before do
@@ -19,6 +21,7 @@ RSpec.describe Server do
   end
 
   after do
+    all_sessions.each {|session| session.quit}
     Server.close
   end
 
@@ -31,7 +34,7 @@ RSpec.describe Server do
   end
 
   it 'allows multiple players to join game' do
-    session_setup([session1, session2])
+    session_setup(normal_sessions)
     expect(session1).to have_content('Players')
     expect(session2).to have_content('Players')
     expect(session1).to have_css('b', text: 'Player 1')
@@ -47,7 +50,7 @@ RSpec.describe Server do
   end
 
   it 'starts the game when two players have joined' do
-    session_setup([session1, session2])
+    session_setup(normal_sessions)
     expect(session1).to have_css('select', class: 'form__dropdown')
     expect(session1).to have_no_content(Server.game.players.last.hand)
     expect(session2).to have_no_css('select', class: 'form__dropdown')
@@ -58,8 +61,8 @@ RSpec.describe Server do
 
   describe 'taking a turn' do
     it 'takes a card when the player has it' do
-     session_setup([session1, session2])
-     rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'D')], [], [session1, session2])
+     session_setup(normal_sessions)
+     rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'D')], [], normal_sessions)
 
      session1.select 'A', from: 'rank'
      session1.select 'Player 2', from: 'player-name'
@@ -70,8 +73,8 @@ RSpec.describe Server do
     end
 
     it 'ends the turn if the player does not have it' do
-      session_setup([session1, session2])
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('3', 'D')], [session1, session2])
+      session_setup(normal_sessions)
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('3', 'D')], normal_sessions)
 
       
       session1.select 'A', from: 'rank'
@@ -86,8 +89,8 @@ RSpec.describe Server do
     end
 
     it 'continues turn if fishing is successful' do
-      session_setup([session1, session2])
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('A', 'D')], [session1, session2])
+      session_setup(normal_sessions)
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('2', 'D')], [Card.new('A', 'D')], normal_sessions)
 
       session1.select 'A', from: 'rank'
       session1.select 'Player 2', from: 'player-name'
@@ -99,8 +102,8 @@ RSpec.describe Server do
     end
 
     it 'gives the current player a card if their hand is empty' do
-      session_setup([session1, session2])
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [], [Card.new('3', 'D'), Card.new('4', 'D')], [session1, session2])
+      session_setup(normal_sessions)
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [], [Card.new('3', 'D'), Card.new('4', 'D')], normal_sessions)
 
       session1.select 'A', from: 'rank'
       session1.select 'Player 2', from: 'player-name'
@@ -114,8 +117,8 @@ RSpec.describe Server do
     end
 
     it 'sends the players to the game over screen when the game ends' do
-      session_setup([session1, session2])
-      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'H'), Card.new('A', 'D')], [], [session1, session2], book1: ['2', '3', '4', '5', '6', '7', '8', '9'], book2: ['10', 'J', 'Q', 'K'])
+      session_setup(normal_sessions)
+      rig_game([Card.new('A', 'S'), Card.new('A', 'C')], [Card.new('A', 'H'), Card.new('A', 'D')], [], normal_sessions, book1: ['2', '3', '4', '5', '6', '7', '8', '9'], book2: ['10', 'J', 'Q', 'K'])
 
       session1.select 'A', from: 'rank'
       session1.select 'Player 2', from: 'player-name'

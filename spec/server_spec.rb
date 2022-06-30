@@ -138,6 +138,7 @@ RSpec.describe Server do
       expect(session3.current_path).to eq '/denied_access'
     end
   end
+
   def session_setup(sessions)
     sessions.each_with_index do |session, index|
       player_name = "Player #{index + 1}"

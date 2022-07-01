@@ -32,6 +32,11 @@ class Game
     player = find_player(player_name)
     current_player = turn_player
     return if current_player === player
+    handle_cards(current_player, rank, player)
+    check_emptiness
+  end
+
+  def handle_cards(current_player, rank, player)
     if player.has_rank?(rank)
       current_player.take_cards(player.give_cards(rank))
       successful_take_message(current_player, rank, player)

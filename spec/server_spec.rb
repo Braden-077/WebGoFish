@@ -21,7 +21,7 @@ RSpec.describe Server do
   end
 
   after do
-    all_sessions.each {|session| session.quit}
+    all_sessions.each {|session| session.driver.quit}
     Server.close
   end
 

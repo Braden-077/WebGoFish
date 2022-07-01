@@ -10,7 +10,7 @@ form action='/play_round' method='post'
         ul
           - game.players.each do |player|
             - if player.name == current_player.name
-              li: b #{player.name} [#{player.books.count} books]
+              li: b You [#{player.books.count} books]
             - else 
               li #{player.name} [#{player.books.count} books]
           -if game.players.count <= 1

@@ -30,15 +30,15 @@ RSpec.describe Server do
     fill_in :name, with: 'John'
     click_on 'Join'
     expect(page).to have_content('Players')
-    expect(page).to have_content('John')
+    expect(page).to have_content('You')
   end
 
   it 'allows multiple players to join game' do
     session_setup(normal_sessions)
     expect(session1).to have_content('Players')
     expect(session2).to have_content('Players')
-    expect(session1).to have_css('b', text: 'Player 1')
-    expect(session2).to have_css('b', text: 'Player 2')
+    expect(session1).to have_css('b', text: 'You')
+    expect(session2).to have_css('b', text: 'You')
     expect(session2).to have_content('Player 1')
     expect(session1).to have_content('Player 2')
   end

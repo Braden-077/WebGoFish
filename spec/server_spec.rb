@@ -109,7 +109,7 @@ RSpec.describe Server do
       session1.click_on 'Ask'
 
       expect(session2).to have_content('It\'s your turn')
-      
+
       session2.select '4', from: 'rank'
       session2.select 'Player 1', from: 'player-name'
       session2.click_on 'Ask'

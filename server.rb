@@ -39,6 +39,10 @@ class Server < Sinatra::Base
     @@game = nil 
   end
 
+  def self.new_game
+    @@game = Game.new
+  end
+
   get '/' do
     slim :index
   end

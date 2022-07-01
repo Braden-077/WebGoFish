@@ -137,6 +137,14 @@ RSpec.describe Server do
 
       expect(session3.current_path).to eq '/denied_access'
     end
+
+    fit 'allows you to add a bot to the game' do
+      session1.visit '/'
+      expect(session1).to have_button 'Play against a bot'
+      session1.fill_in :name, with: 'Braden'
+      session1.click_on 'Play against a bot'
+      expect(session1.current_path).to eq '/game'
+    end
   end
 
   def session_setup(sessions)

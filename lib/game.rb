@@ -36,16 +36,6 @@ class Game
     check_emptiness
   end
 
-  def handle_cards(current_player, rank, player)
-    if player.has_rank?(rank)
-      current_player.take_cards(player.give_cards(rank))
-      successful_take_message(current_player, rank, player)
-    elsif !player.has_rank?(rank)
-      failure_to_take_message(current_player, rank, player)
-      send_fishing(current_player, rank)
-    end
-  end
-
   def over?
     players.sum {|player| player.books.length} == TOTAL_BOOKS
   end
@@ -133,6 +123,16 @@ class Game
     else
       up_round
       failure_fishing_message(current_player)
+    end
+  end
+
+  def handle_cards(current_player, rank, player)
+    if player.has_rank?(rank)
+      current_player.take_cards(player.give_cards(rank))
+      successful_take_message(current_player, rank, player)
+    elsif !player.has_rank?(rank)
+      failure_to_take_message(current_player, rank, player)
+      send_fishing(current_player, rank)
     end
   end
 end

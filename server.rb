@@ -70,6 +70,7 @@ class Server < Sinatra::Base
   end
 
   post '/play_round' do
+    pusher_client.trigger('go-fish', 'game-changed', { message: "Turn taken." })
     self.class.game.play_round(params['rank'], params['player-name'])
     pusher_client.trigger('go-fish', 'game-changed', { message: "Turn taken." })
     self.class.game.check_emptiness

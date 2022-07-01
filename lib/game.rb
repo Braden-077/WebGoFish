@@ -31,6 +31,7 @@ class Game
   def play_round(rank, player_name)
     player = find_player(player_name)
     current_player = turn_player
+    return if current_player === player
     if player.has_rank?(rank)
       current_player.take_cards(player.give_cards(rank))
       successful_take_message(current_player, rank, player)
@@ -105,20 +106,20 @@ class Game
 
   private # all of these are helper methods called during play_round
 
-  def successful_take_message(turn_player, rank, asked_player)
-    round_results.push("#{turn_player.name} took #{rank}'s from #{asked_player.name}!")
+  def successful_take_message(current_player, rank, asked_player)
+    round_results.push("#{current_player.name} took #{rank}'s from #{asked_player.name}!")
   end
 
-  def failure_to_take_message(turn_player, rank, asked_player)
-    round_results.push("#{turn_player.name} asked #{asked_player.name} for #{rank}'s. Go fish!")
+  def failure_to_take_message(current_player, rank, asked_player)
+    round_results.push("#{current_player.name} asked #{asked_player.name} for #{rank}'s. Go fish!")
   end
 
-  def successful_fishing_message(turn_player, rank)
-    round_results.push("#{turn_player.name} went fishing and succeeded in fishing a #{rank}!")
+  def successful_fishing_message(current_player, rank)
+    round_results.push("#{current_player.name} went fishing and succeeded in fishing a #{rank}!")
   end
 
-  def failure_fishing_message(turn_player)
-   round_results.push("#{turn_player.name} went fish and failed!")
+  def failure_fishing_message(current_player)
+   round_results.push("#{current_player.name} went fish and failed!")
   end
    
   def send_fishing(current_player, rank)
